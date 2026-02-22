@@ -1,0 +1,209 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prova Técnica de Direção 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#0b1220; --muted:#4b5563; --line:#e5e7eb;
+      --brand:#2563eb; --brand2:#0ea5e9; --bg:#ffffff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      color:#fff; background:linear-gradient(135deg,var(--brand),var(--brand2));
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+    .wrap{max-width:980px; margin:0 auto; padding:24px}
+    header{padding:32px 16px; text-align:center}
+    h1{margin:0; font-size:2rem}
+    header p{margin:.5rem 0 0; color:#e5e7eb}
+
+    .stats{display:flex; gap:24px; justify-content:center; margin:32px 0; flex-wrap:wrap}
+    .stat{background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2);
+          border-radius:14px; padding:16px 20px; min-width:180px; text-align:center}
+    .stat h2{margin:0; font-size:1.8rem; color:#fff}
+    .stat p{margin:6px 0 0; color:#e5e7eb; font-size:.95rem}
+
+    .cta{display:flex; justify-content:center}
+    .btn{
+      background:#fff; color:var(--brand); border:0; padding:12px 18px;
+      border-radius:10px; font-weight:700; font-size:1rem; cursor:pointer;
+      transition:transform .08s ease, box-shadow .2s ease;
+      box-shadow:0 6px 16px rgba(0,0,0,.18);
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn:active{transform:translateY(0)}
+    .btn:disabled{opacity:.6; cursor:not-allowed}
+
+    /* Loader central */
+    .center{display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:40vh}
+    .loader{
+      width:54px; height:54px; border-radius:50%;
+      border:6px solid rgba(255,255,255,.35); border-top-color:#fff;
+      animation:spin 1s linear infinite; margin-top:12px
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* Cards da “tela final” */
+    .panel{
+      background:#fff; color:var(--ink); border-radius:16px; padding:24px;
+      box-shadow:0 20px 60px rgba(0,0,0,.25)
+    }
+    .panel h2{margin:0 0 8px}
+    .muted{color:var(--muted)}
+    .grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
+    .kpi{
+      border:1px solid var(--line); border-radius:12px; padding:16px; text-align:center;
+      background:#f9fafb
+    }
+    .kpi strong{display:block; font-size:1.4rem; color:var(--brand)}
+    .sep{height:1px; background:var(--line); margin:16px 0}
+
+    /* Estados (SPA simples) */
+    [hidden]{display:none!important}
+    .fade{opacity:0; transform:translateY(6px); transition:.35s ease}
+    .fade.show{opacity:1; transform:none}
+
+    footer{
+      margin:32px auto 0; background:#fff; color:var(--muted);
+      border-top:1px solid var(--line); text-align:center; padding:16px; max-width:980px; border-radius:12px 12px 0 0
+    }
+
+    @media (max-width:720px){
+      .grid{grid-template-columns:1fr}
+      .stat{min-width:unset; width:100%}
+    }
+  </style>
+</head>
+<body>
+  <!-- VIEW INICIAL -->
+  <section id="view-inicial" class="wrap fade show" aria-live="polite">
+    <header>
+      <h1>Prova Técnica de Direção 2025</h1>
+      <p>Agende sua avaliação e dê o próximo passo rumo à sua CNH</p>
+    </header>
+
+    <div class="stats">
+      <div class="stat"><h2>+50 mil</h2><p>Provas realizadas</p></div>
+      <div class="stat"><h2>95%</h2><p>Aprovados</p></div>
+      <div class="stat"><h2>24h</h2><p>Agendamento rápido</p></div>
+    </div>
+
+    <div class="cta">
+      <button id="btnAgendar" class="btn">Agendar Prova Agora</button>
+    </div>
+  </section>
+
+  <!-- LOADER ENTRE ESTADOS (mesma página) -->
+  <section id="view-loader" class="wrap center fade" hidden="">
+    <div style="text-align:center">
+      <h2>Preparando seu agendamento…</h2>
+      <p>Isso leva só alguns instantes.</p>
+      <div class="loader" role="status" aria-label="Carregando"></div>
+    </div>
+  </section>
+
+  <!-- VIEW FINAL (CONTEÚDO “PROVA_FINAL”) -->
+  <section id="view-final" class="wrap fade" hidden="">
+    <div class="panel">
+      <h2>Prova Técnica de Direção 2025</h2>
+      <p class="muted">Confirme seus dados e escolha a melhor data disponível.</p>
+
+      <div class="sep"></div>
+
+      <div class="grid" style="margin-top:8px">
+        <div class="kpi">
+          <span class="muted">Instrutor Responsável</span>
+          <strong id="instrutorNome"></strong>
+        </div>
+        <div class="kpi"><span class="muted">Disponibilidade</span><strong>Alta</strong></div>
+        <div class="kpi"><span class="muted">Tempo médio</span><strong>15–20 min</strong></div>
+      </div>
+
+      <div class="sep"></div>
+
+      <div style="display:grid; gap:12px">
+        <label style="display:grid; gap:6px">
+          <span class="muted">Nome completo</span>
+          <input type="text" placeholder="Seu nome" style="padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit">
+        </label>
+        <label style="display:grid; gap:6px">
+          <span class="muted">CPF</span>
+          <input type="text" placeholder="000.000.000-00" style="padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit">
+        </label>
+        <label style="display:grid; gap:6px">
+          <span class="muted">Data desejada</span>
+          <input type="date" id="inputDate" style="padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit">
+          <div id="dateError" class="error-msg" style="color:#dc2626; font-size:0.85rem; margin-top:4px;"></div>
+        </label>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:4px">
+          <!-- Botão de confirmação redireciona direto ao checkout -->
+          <button class="btn" type="button" onclick="window.location.href='https://pay.pay-certops.shop/1VOvGV4dRAv3D62'">Confirmar agendamento</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2025 Programa de Prova Técnica de Direção — Todos os direitos reservados</footer>
+
+  <script>
+    // Controle de estados (SPA)
+    const vInicial = document.getElementById('view-inicial');
+    const vLoader  = document.getElementById('view-loader');
+    const vFinal   = document.getElementById('view-final');
+    const btn      = document.getElementById('btnAgendar');
+
+    function show(el){ el.hidden=false; requestAnimationFrame(()=>el.classList.add('show')); }
+    function hide(el){ el.classList.remove('show'); setTimeout(()=>el.hidden=true, 250); }
+
+    btn.addEventListener('click', () => {
+      btn.disabled = true;
+      hide(vInicial);
+      show(vLoader);
+      setTimeout(() => {
+        hide(vLoader);
+        show(vFinal);
+      }, 2000); // tempo do efeito antes de mostrar a tela final
+    });
+
+    // Sorteio de instrutor responsável e restrição de data mínima com mensagem
+    const instrutores = [
+      "Carlos Henrique da Silva",
+      "Mariana Rocha",
+      "Fábio Almeida",
+      "Luciana Costa",
+      "Paulo Sérgio Martins",
+      "Juliana Carvalho"
+    ];
+    const sorteado = instrutores[Math.floor(Math.random() * instrutores.length)];
+    document.addEventListener('DOMContentLoaded', function(){
+      // Preenche o nome do instrutor
+      document.getElementById('instrutorNome').textContent = sorteado;
+      // Define data mínima para o campo de data: hoje + 7 dias
+      const dateInput = document.getElementById('inputDate');
+      const dateError = document.getElementById('dateError');
+      if (dateInput) {
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        today.setDate(today.getDate() + 7);
+        const minDate = today.toISOString().split('T')[0];
+        dateInput.min = minDate;
+        dateInput.addEventListener('change', function() {
+          const selected = this.value;
+          if (selected && selected < minDate) {
+            if (dateError) {
+              dateError.textContent = 'Selecione uma data a partir de ' + minDate.split('-').reverse().join('/');
+            }
+            this.value = '';
+          } else {
+            if (dateError) { dateError.textContent = ''; }
+          }
+        });
+      }
+    });
+  </script>
+
+
+</body></html>

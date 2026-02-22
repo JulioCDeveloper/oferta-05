@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <!-- Automatically refresh to the consultation page after 5 seconds. -->
+  
+  <meta charset="UTF-8">
+  <title>CNH Social 2025</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /*
+      This page is a simple reproduction of the CNH Social loading screen
+      depicted in the uploaded photo.  It uses pure HTML and CSS to build
+      a full‑screen blue gradient, a headline, a circular loading animation
+      and a small statistics section.  The colours, fonts and spacing are
+      tuned by eye to match the screenshot as closely as possible.
+    */
+
+    /* Reset margin and padding and allow the body to fill the viewport */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      /* Create a subtle vertical gradient from a lighter to a darker blue */
+      background: linear-gradient(180deg, #0B4FB8 0%, #003F8F 100%);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.6em;
+      font-weight: 700;
+      margin: 0.2em 0 0.3em;
+    }
+
+    .tagline {
+      font-size: 1.1em;
+      color: #cfe3ff;
+      margin-bottom: 2em;
+    }
+
+    /* Loader container holds the spinning ring and moving dot */
+    .loader {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin-bottom: 2em;
+    }
+
+    /* The ring itself is a border with a coloured top piece that spins */
+    .loader .ring {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top: 4px solid #65D5FF;
+      border-radius: 50%;
+      animation: spin 2s linear infinite;
+    }
+
+    /* The central dot orbits around the centre to provide extra motion */
+    .loader .inner-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      background: #65D5FF;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      animation: dotmove 2s ease-in-out infinite;
+    }
+
+    /* Spin the outer ring continuously */
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Move the dot in a circular orbit; rotate the orbit halfway to avoid backtracking */
+    @keyframes dotmove {
+      0%, 100% {
+        transform: translate(-50%, -50%) rotate(0deg) translate(60px) rotate(0deg);
+      }
+      50% {
+        transform: translate(-50%, -50%) rotate(180deg) translate(60px) rotate(-180deg);
+      }
+    }
+
+    .progress-text {
+      font-size: 1em;
+      color: #cfe3ff;
+      margin-bottom: 1em;
+    }
+
+    /* Four little indicator dots that pulse in sequence to suggest activity */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 2em;
+    }
+
+    .progress-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      animation: blink 4s ease-in-out infinite;
+    }
+
+    /* Stagger the animation delays so they pulse one after another */
+    .progress-dots span:nth-child(1) { animation-delay: 0s; }
+    .progress-dots span:nth-child(2) { animation-delay: 0.5s; }
+    .progress-dots span:nth-child(3) { animation-delay: 1s; }
+    .progress-dots span:nth-child(4) { animation-delay: 1.5s; }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    /* Container for the statistics; flex allows wrapping on narrow screens */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .stat-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1em 1.5em;
+      border-radius: 8px;
+      min-width: 130px;
+    }
+
+    .stat-box .value {
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+
+    .stat-box .label {
+      font-size: 0.8em;
+      color: #cfe3ff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CNH Social 2025</h1>
+    <div class="tagline">Conectando brasileiros à mobilidade e autonomia</div>
+  </header>
+
+  <!-- Loading animation area -->
+  <div class="loader">
+    <div class="ring"></div>
+    <div class="inner-dot"></div>
+  </div>
+
+  <div class="progress-text">Analisando sua localização e perfil socioeconômico...</div>
+  <div class="progress-dots">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Statistic summary to mirror the bottom of the original page -->
+  <div class="stats">
+    <div class="stat-box">
+      <div class="value">150mil+</div>
+      <div class="label">CNH Disponíveis</div>
+    </div>
+    <div class="stat-box">
+      <div class="value">5.570</div>
+      <div class="label">Municípios</div>
+    </div>
+    <div class="stat-box">
+      <div class="value">27</div>
+      <div class="label">Estados</div>
+    </div>
+  </div>
+  <script>
+    // After five seconds, redirect to the consultation page in the same
+    // directory.  This will cause the browser to load consulta.html.
+    setTimeout(function() {
+      window.location.href = 'consulta.html';
+    }, 5000);
+  </script>
+
+
+</body></html>
