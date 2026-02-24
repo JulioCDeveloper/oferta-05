@@ -22,6 +22,18 @@
       "dest": "/up1/index.html"
     },
     {
+      "src": "/up2/css/(.*)",
+      "dest": "/up2/css/$1"
+    },
+    {
+      "src": "/up2/js/(.*)",
+      "dest": "/up2/js/$1"
+    },
+    {
+      "src": "/up2/images/(.*)",
+      "dest": "/up2/images/$1"
+    },
+    {
       "src": "/up2/(.*)",
       "dest": "/up2/$1"
     },
