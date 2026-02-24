@@ -10,6 +10,42 @@
       "dest": "/login/index.html"
     },
     {
+      "src": "/up1/consulta.html",
+      "dest": "/up1/consulta.html"
+    },
+    {
+      "src": "/up1/(.*)",
+      "dest": "/up1/$1"
+    },
+    {
+      "src": "/up1",
+      "dest": "/up1/index.html"
+    },
+    {
+      "src": "/up2/(.*)",
+      "dest": "/up2/$1"
+    },
+    {
+      "src": "/up2",
+      "dest": "/up2/index.html"
+    },
+    {
+      "src": "/up3/(.*)",
+      "dest": "/up3/$1"
+    },
+    {
+      "src": "/up3",
+      "dest": "/up3/index.html"
+    },
+    {
+      "src": "/up4/(.*)",
+      "dest": "/up4/$1"
+    },
+    {
+      "src": "/up4",
+      "dest": "/up4/index.html"
+    },
+    {
       "src": "/",
       "dest": "/index.html"
     }
