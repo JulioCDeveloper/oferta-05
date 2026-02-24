@@ -1,0 +1,42 @@
+═══════════════════════════════════════════════════════════════
+  🚀 COMANDOS DE DEPLOY - COPIE E COLE
+═══════════════════════════════════════════════════════════════
+
+git add .
+git commit -m "fix: atualizar arquivos CSS/JS do up2 e corrigir up1"
+git push
+
+═══════════════════════════════════════════════════════════════
+
+⏱️  AGUARDAR: 1-2 minutos
+
+═══════════════════════════════════════════════════════════════
+
+✅ TESTAR:
+
+1. https://www.socialpdffdigital.sbs/up2
+   → Deve aparecer com CSS/JS completo
+   → F12 → Network → Verificar 200 em todos
+
+2. https://www.socialpdffdigital.sbs/up1
+   → Aguardar 5s → Deve ir para /up1/consulta.html
+
+═══════════════════════════════════════════════════════════════
+
+📊 VERIFICAÇÃO PRÉ-DEPLOY:
+
+✅ 26 arquivos CSS
+✅ 14 arquivos JS
+✅ 0 arquivos com @
+✅ HTML atualizado
+✅ Vercel.json configurado
+✅ Pronto para deploy!
+
+═══════════════════════════════════════════════════════════════
+
+📚 DOCUMENTAÇÃO:
+
+- DEPLOY_UP2_FINAL.md (guia completo)
+- verificar-up2-deploy.sh (script de verificação)
+
+═══════════════════════════════════════════════════════════════
