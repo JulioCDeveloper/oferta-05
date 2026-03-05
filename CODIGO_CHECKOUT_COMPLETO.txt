@@ -1,0 +1,353 @@
+# CÓDIGO COMPLETO DO CHECKOUT - COPIAR E COLAR
+
+## INSTRUÇÕES:
+1. Abra o arquivo up2/checkout.html
+2. Substitua TODO o conteúdo pelo código abaixo
+3. Repita para up1, up3 e up4 (ajustando valores)
+
+## CÓDIGO HTML COMPLETO:
+
+Devido ao tamanho do arquivo (700+ linhas), vou fornecer as MODIFICAÇÕES necessárias:
+
+### 1. ADICIONAR LOADING SCREEN (após <body>)
+
+```html
+<!-- Loading Screen -->
+<div id="loadingScreen" class="loading-fullscreen">
+  <div class="spinner"></div>
+  <p>Gerando seu código PIX...</p>
+</div>
+```
+
+### 2. ADICIONAR CSS DO LOADING (no <style>)
+
+```css
+/* Loading Screen */
+.loading-fullscreen {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.loading-fullscreen.active {
+  display: flex;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #22c55e;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-fullscreen p {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #666;
+}
+```
+
+### 3. MODIFICAR MODAL PARA 2 COLUNAS
+
+Substituir o conteúdo do modal por:
+
+```html
+<div class="modal" id="pixModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closePixModal()">&times;</button>
+    
+    <h2 style="text-align: center; margin-bottom: 10px; font-size: 22px;">
+      Falta pouco! Para finalizar a compra, escaneie o QR Code abaixo.
+    </h2>
+    
+    <div class="timer-container" style="text-align: center; margin-bottom: 20px;">
+      <p style="color: #666;">O código expira em: <span id="pixTimer" style="color: #dc2626; font-weight: bold; font-size: 18px;">15:00</span></p>
+    </div>
+    
+    <div class="modal-grid">
+      <!-- Coluna Esquerda -->
+      <div class="modal-left">
+        <div class="qr-code-container">
+          <img id="qrCodeImage" src="" alt="QR Code PIX" style="max-width: 280px; width: 100%; border: 2px solid #eee; border-radius: 12px; padding: 10px;">
+        </div>
+        
+        <p style="text-align: center; color: #666; margin: 20px 0 10px; font-size: 14px;">
+          Se preferir, pague com a opção <strong>PIX Copia e Cola:</strong>
+        </p>
+        
+        <div class="pix-code" id="pixCode" style="background: #f9fafb; border: 1px dashed #ddd; border-radius: 8px; padding: 16px; margin: 20px 0; word-break: break-all; font-family: monospace; font-size: 12px; color: #666;"></div>
+        
+        <button class="btn-copy" onclick="copyPixCode()" style="width: 100%; padding: 14px; background: #22c55e; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer;">
+          📋 COPIAR CÓDIGO
+        </button>
+        
+        <div class="payment-status" id="paymentStatus" style="text-align: center; padding: 20px; margin-top: 20px;">
+          <div class="status-pending" style="color: #f59e0b;">
+            <div class="loading" style="display: inline-block; width: 20px; height: 20px; border: 3px solid #f3f3f3; border-top: 3px solid #22c55e; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+            <p style="margin-top: 10px;">Aguardando pagamento...</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Coluna Direita -->
+      <div class="modal-right">
+        <h3 style="margin-bottom: 15px; font-size: 18px;">Detalhes da compra:</h3>
+        
+        <div style="background: #f9fafb; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+          <p style="margin-bottom: 10px; font-size: 14px; color: #666;">Valor total: <strong style="color: #22c55e; font-size: 20px;">R$ 42,58</strong></p>
+          <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
+            <img src="https://cloudfox-digital-products.s3.amazonaws.com/uploads/public/products/jMIkp7vurljeRqs1lyRVUfycYOU7zPyOu0TSCfNz.png" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
+            <div>
+              <p style="font-weight: 600; margin: 0; font-size: 14px;">Taxa de Inscrição</p>
+              <p style="font-size: 12px; color: #666; margin: 0;">Taxa única</p>
+            </div>
+          </div>
+        </div>
+        
+        <h3 style="margin-bottom: 15px; font-size: 18px;">Instruções para pagamento</h3>
+        
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+          <div style="display: flex; align-items: start; gap: 10px;">
+            <div style="background: #22c55e; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; font-size: 14px;">1</div>
+            <p style="margin: 0; color: #666; font-size: 14px; line-height: 1.5;">Abra o app do seu banco e entre no ambiente Pix</p>
+          </div>
+          
+          <div style="display: flex; align-items: start; gap: 10px;">
+            <div style="background: #22c55e; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; font-size: 14px;">2</div>
+            <p style="margin: 0; color: #666; font-size: 14px; line-height: 1.5;">Escolha <strong>Pagar com QR Code</strong> e aponte a câmera para o código ao lado.</p>
+          </div>
+          
+          <div style="display: flex; align-items: start; gap: 10px;">
+            <div style="background: #22c55e; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; font-size: 14px;">3</div>
+            <p style="margin: 0; color: #666; font-size: 14px; line-height: 1.5;">Confirme as informações e finalize sua compra.</p>
+          </div>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 10px; margin-top: 30px; padding: 12px; background: #f0f9ff; border-radius: 8px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 30px; height: 30px;">
+            <path fill="#32BCAD" d="M242.4 292.5C247.8 287.1 257.1 287.1 262.5 292.5L339.5 369.5C353.7 383.7 372.6 391.5 392.6 391.5H407.7L310.6 488.6C280.3 518.1 231.1 518.1 200.8 488.6L103.3 391.2H112.6C132.6 391.2 151.5 383.4 165.7 369.2L242.4 292.5z"/>
+          </svg>
+          <div>
+            <p style="margin: 0; font-size: 13px; color: #0369a1; font-weight: 600;">PIX</p>
+            <p style="margin: 0; font-size: 11px; color: #0369a1;">Ambiente seguro</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Tela de Sucesso -->
+    <div id="successContent" style="display: none; text-align: center; padding: 40px;">
+      <div style="width: 80px; height: 80px; margin: 0 auto 20px;">
+        <svg class="success-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="width: 80px; height: 80px;">
+          <circle class="success-checkmark__circle" cx="26" cy="26" r="25" fill="none" stroke="#22c55e" stroke-width="2"/>
+          <path class="success-checkmark__check" fill="none" stroke="#22c55e" stroke-width="2" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+      </div>
+      <h2 style="color: #22c55e; margin-bottom: 10px;">Pagamento Confirmado!</h2>
+      <p style="color: #666;">Seu pagamento foi processado com sucesso.</p>
+    </div>
+  </div>
+</div>
+```
+
+### 4. ADICIONAR CSS PARA LAYOUT 2 COLUNAS
+
+```css
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 1000px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .modal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.modal-left {
+  border-right: 1px solid #eee;
+  padding-right: 30px;
+}
+
+.modal-right {
+  padding-left: 10px;
+}
+
+@media (max-width: 768px) {
+  .modal-left {
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
+  .modal-right {
+    padding-left: 0;
+  }
+}
+```
+
+### 5. MODIFICAR JAVASCRIPT - ADICIONAR LOADING E TIMER
+
+No evento do botão "GERAR PIX", adicionar:
+
+```javascript
+document.getElementById('btnGerarPix').addEventListener('click', async function() {
+  const email = document.getElementById('email').value;
+  const telefone = document.getElementById('telefone').value;
+  const nome = document.getElementById('nome').value;
+  const cpf = document.getElementById('cpf').value;
+
+  if (!email || !telefone || !nome || !cpf) {
+    alert('Por favor, preencha todos os campos');
+    return;
+  }
+
+  // MOSTRAR LOADING
+  document.getElementById('loadingScreen').classList.add('active');
+
+  try {
+    const response = await fetch('https://api-v2.overmax.io/api/transactions/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        cpf: cpf.replace(/\D/g, ''),
+        amount: 42.58,
+        paymentMethod: 'pix',
+        paymentType: 'taxa_inscricao',
+        customer: {
+          name: nome,
+          email: email,
+          phone: telefone.replace(/\D/g, ''),
+        },
+        utm_source: 'cnh_social',
+        utm_medium: 'web',
+        utm_campaign: 'taxa_inscricao',
+      }),
+    });
+
+    const result = await response.json();
+
+    // ESCONDER LOADING
+    document.getElementById('loadingScreen').classList.remove('active');
+
+    if (!result.success) {
+      throw new Error(result.message || 'Erro ao criar transação');
+    }
+
+    // Exibir QR Code
+    if (result.data.paymentData) {
+      document.getElementById('qrCodeImage').src = result.data.paymentData.qrCodeBase64;
+      document.getElementById('pixCode').textContent = result.data.paymentData.qrCode;
+      
+      // Abrir modal
+      document.getElementById('pixModal').classList.add('active');
+      
+      // INICIAR TIMER
+      if (result.data.paymentData.expiresAt) {
+        startPixTimer(result.data.paymentData.expiresAt);
+      }
+      
+      // Conectar WebSocket
+      connectWebSocket(result.data.transactionId);
+    }
+
+  } catch (error) {
+    // ESCONDER LOADING EM CASO DE ERRO
+    document.getElementById('loadingScreen').classList.remove('active');
+    console.error('Erro ao gerar PIX:', error);
+    alert('Erro ao gerar PIX. Tente novamente.');
+  }
+});
+```
+
+### 6. ADICIONAR FUNÇÃO DO TIMER
+
+```javascript
+let timerInterval = null;
+
+function startPixTimer(expiresAt) {
+  const timerElement = document.getElementById('pixTimer');
+  
+  // Limpar timer anterior se existir
+  if (timerInterval) {
+    clearInterval(timerInterval);
+  }
+  
+  timerInterval = setInterval(() => {
+    const now = new Date().getTime();
+    const expiry = new Date(expiresAt).getTime();
+    const diff = expiry - now;
+    
+    if (diff <= 0) {
+      clearInterval(timerInterval);
+      timerElement.textContent = '00:00';
+      timerElement.style.color = '#dc2626';
+      alert('Código PIX expirado. Por favor, gere um novo código.');
+      return;
+    }
+    
+    const minutes = Math.floor(diff / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+    const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    
+    timerElement.textContent = timeString;
+    
+    // Vermelho quando < 5 minutos
+    if (minutes < 5) {
+      timerElement.style.color = '#dc2626';
+    }
+  }, 1000);
+}
+
+// Limpar timer ao fechar modal
+function closePixModal() {
+  document.getElementById('pixModal').classList.remove('active');
+  if (wsConnection) {
+    wsConnection.close();
+  }
+  if (timerInterval) {
+    clearInterval(timerInterval);
+  }
+}
+```
+
+## VALORES POR PÁGINA:
+
+- UP1: R$ 150,00 - exame_medico_cnh
+- UP2: R$ 42,58 - taxa_inscricao  
+- UP3: R$ 89,90 - prova_tecnica_direcao
+- UP4: R$ 120,00 - exame_psicotecnico
+
+## IMAGEM DO PRODUTO:
+
+Usar a mesma URL para todas:
+https://cloudfox-digital-products.s3.amazonaws.com/uploads/public/products/jMIkp7vurljeRqs1lyRVUfycYOU7zPyOu0TSCfNz.png

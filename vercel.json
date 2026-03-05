@@ -10,6 +10,10 @@
       "dest": "/login/index.html"
     },
     {
+      "src": "/up1/checkout.html",
+      "dest": "/up1/checkout.html"
+    },
+    {
       "src": "/up1/consulta.html",
       "dest": "/up1/consulta.html"
     },
@@ -20,6 +24,10 @@
     {
       "src": "/up1",
       "dest": "/up1/index.html"
+    },
+    {
+      "src": "/up2/checkout.html",
+      "dest": "/up2/checkout.html"
     },
     {
       "src": "/up2/css/(.*)",
@@ -42,12 +50,20 @@
       "dest": "/up2/index.html"
     },
     {
+      "src": "/up3/checkout.html",
+      "dest": "/up3/checkout.html"
+    },
+    {
       "src": "/up3/(.*)",
       "dest": "/up3/$1"
     },
     {
       "src": "/up3",
       "dest": "/up3/index.html"
+    },
+    {
+      "src": "/up4/checkout.html",
+      "dest": "/up4/checkout.html"
     },
     {
       "src": "/up4/(.*)",
