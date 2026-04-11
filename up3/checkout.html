@@ -784,21 +784,28 @@
 
         // Exibir QR Code
         if (result.data.paymentData) {
+          const pixCode = result.data.paymentData.qrCode || result.data.paymentData.copyPaste;
+          
           // Preparar QR Code
           let qrCodeSrc = '';
-          if (result.data.paymentData.qrCodeBase64) {
-            // Se for base64, adicionar prefixo se necessário
+          
+          if (result.data.paymentData.qrCodeBase64 && result.data.paymentData.qrCodeBase64.trim() !== '') {
+            // Se tiver base64, usar ele
             if (result.data.paymentData.qrCodeBase64.startsWith('data:image')) {
               qrCodeSrc = result.data.paymentData.qrCodeBase64;
             } else {
               qrCodeSrc = 'data:image/png;base64,' + result.data.paymentData.qrCodeBase64;
             }
-          } else if (result.data.paymentData.qrCodeUrl) {
+          } else if (result.data.paymentData.qrCodeUrl && result.data.paymentData.qrCodeUrl.trim() !== '') {
+            // Se tiver URL, usar ela
             qrCodeSrc = result.data.paymentData.qrCodeUrl;
+          } else if (pixCode) {
+            // Se não tiver imagem, gerar QR Code usando API externa
+            qrCodeSrc = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(pixCode)}`;
           }
           
           document.getElementById('qrCodeImage').src = qrCodeSrc;
-          document.getElementById('pixCode').textContent = result.data.paymentData.qrCode || result.data.paymentData.copyPaste;
+          document.getElementById('pixCode').textContent = pixCode;
           
           // Abrir modal
           document.getElementById('pixModal').classList.add('active');
