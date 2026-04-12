@@ -756,34 +756,20 @@
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            store_code: 'CNH_STORE',
-            external_code: `CNH_UP4_${Date.now()}`,
-            payment_method: 'pix',
-            payment_format: 'regular',
-            installments: 1,
-            amount: 12000, // Valor em centavos (R$ 120,00)
-            payment_amount: 12000,
-            postback_url: null,
-            pix: {
-              expires_in_days: 1
-            },
+            amount: 120.00, // Valor em reais (backend converte para centavos)
+            description: 'Exame Psicotécnico',
+            externalId: `CNH_UP4_${Date.now()}`,
+            customerName: nome,
+            customerEmail: email,
+            customerDocument: cpf.replace(/\D/g, ''),
+            customerPhone: telefone.replace(/\D/g, ''),
+            customerIp: '127.0.0.1',
             items: [{
               code: 'exame_psicotecnico',
               name: 'Exame Psicotécnico',
               amount: 12000,
               total: 12000
-            }],
-            customer: {
-              name: nome,
-              email: email,
-              document: cpf.replace(/\D/g, ''),
-              phone: telefone.replace(/\D/g, ''),
-              ip: '127.0.0.1'
-            },
-            extra: {
-              cybersource_fingerprint: 'mangofy_integration',
-              seon_fingerprint: 'pix_payment'
-            }
+            }]
           }),
         });
 

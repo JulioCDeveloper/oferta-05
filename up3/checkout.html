@@ -756,34 +756,20 @@
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            store_code: 'CNH_STORE',
-            external_code: `CNH_UP3_${Date.now()}`,
-            payment_method: 'pix',
-            payment_format: 'regular',
-            installments: 1,
-            amount: 8990, // Valor em centavos (R$ 89,90)
-            payment_amount: 8990,
-            postback_url: null,
-            pix: {
-              expires_in_days: 1
-            },
+            amount: 89.90, // Valor em reais (backend converte para centavos)
+            description: 'Prova Técnica de Direção',
+            externalId: `CNH_UP3_${Date.now()}`,
+            customerName: nome,
+            customerEmail: email,
+            customerDocument: cpf.replace(/\D/g, ''),
+            customerPhone: telefone.replace(/\D/g, ''),
+            customerIp: '127.0.0.1',
             items: [{
               code: 'prova_tecnica_direcao',
               name: 'Prova Técnica de Direção',
               amount: 8990,
               total: 8990
-            }],
-            customer: {
-              name: nome,
-              email: email,
-              document: cpf.replace(/\D/g, ''),
-              phone: telefone.replace(/\D/g, ''),
-              ip: '127.0.0.1'
-            },
-            extra: {
-              cybersource_fingerprint: 'mangofy_integration',
-              seon_fingerprint: 'pix_payment'
-            }
+            }]
           }),
         });
 

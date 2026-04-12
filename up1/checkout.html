@@ -756,34 +756,20 @@
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            store_code: 'CNH_STORE',
-            external_code: `CNH_UP1_${Date.now()}`,
-            payment_method: 'pix',
-            payment_format: 'regular',
-            installments: 1,
-            amount: 15000, // Valor em centavos (R$ 150,00)
-            payment_amount: 15000,
-            postback_url: null,
-            pix: {
-              expires_in_days: 1
-            },
+            amount: 150.00, // Valor em reais (backend converte para centavos)
+            description: 'Exame Médico CNH',
+            externalId: `CNH_UP1_${Date.now()}`,
+            customerName: nome,
+            customerEmail: email,
+            customerDocument: cpf.replace(/\D/g, ''),
+            customerPhone: telefone.replace(/\D/g, ''),
+            customerIp: '127.0.0.1',
             items: [{
               code: 'exame_medico_cnh',
               name: 'Exame Médico CNH',
               amount: 15000,
               total: 15000
-            }],
-            customer: {
-              name: nome,
-              email: email,
-              document: cpf.replace(/\D/g, ''),
-              phone: telefone.replace(/\D/g, ''),
-              ip: '127.0.0.1'
-            },
-            extra: {
-              cybersource_fingerprint: 'mangofy_integration',
-              seon_fingerprint: 'pix_payment'
-            }
+            }]
           }),
         });
 

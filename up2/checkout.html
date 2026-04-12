@@ -752,34 +752,20 @@
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            store_code: 'CNH_STORE',
-            external_code: `CNH_UP2_${Date.now()}`,
-            payment_method: 'pix',
-            payment_format: 'regular',
-            installments: 1,
-            amount: 4258, // Valor em centavos (R$ 42,58)
-            payment_amount: 4258,
-            postback_url: null,
-            pix: {
-              expires_in_days: 1
-            },
+            amount: 42.58, // Valor em reais (backend converte para centavos)
+            description: 'Taxa de Inscrição CNH',
+            externalId: `CNH_UP2_${Date.now()}`,
+            customerName: nome,
+            customerEmail: email,
+            customerDocument: cpf.replace(/\D/g, ''),
+            customerPhone: telefone.replace(/\D/g, ''),
+            customerIp: '127.0.0.1',
             items: [{
               code: 'taxa_inscricao',
               name: 'Taxa de Inscrição CNH',
               amount: 4258,
               total: 4258
-            }],
-            customer: {
-              name: nome,
-              email: email,
-              document: cpf.replace(/\D/g, ''),
-              phone: telefone.replace(/\D/g, ''),
-              ip: '127.0.0.1'
-            },
-            extra: {
-              cybersource_fingerprint: 'mangofy_integration',
-              seon_fingerprint: 'pix_payment'
-            }
+            }]
           }),
         });
 
